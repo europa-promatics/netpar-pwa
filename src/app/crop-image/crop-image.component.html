@@ -1,0 +1,16 @@
+<!-- crop image -->
+<div class="wrapper">
+    <div class="cusmain-panel">
+		<section class="editor-sec">
+			<app-back-button-navbar></app-back-button-navbar>
+		    <div class="cropping-box">
+		     	<ngx-croppie *ngIf="croppieImage" #ngxCroppie [croppieOptions]="croppieOptions" [imageUrl]="croppieImage" (result)="newImageResultFromCroppie($event)"></ngx-croppie>
+		    </div>
+		    <div class="editor-button">
+		      	<button type="button" class="btn" data-dismiss="modal" (click)="cancelCroppieEdit()">Cancel</button>
+		      	<button type="button" class="btn" (click)="saveImageFromCroppie()">Save</button>
+		    </div>
+		    
+		</section>
+	</div>
+</div>

@@ -1,0 +1,17 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+	<app-back-button-navbar></app-back-button-navbar>
+    <div class="cusmain-panel">
+		<div class="tb-wrap">
+			<section class="downloaded-sec">
+				<div class="downloaded-box" *ngIf=url>
+					<img [src]="url" class="img-effect img-responsive" />
+				</div>
+			</section>
+			<app-footer></app-footer>
+		</div>
+	</div>
+</div>

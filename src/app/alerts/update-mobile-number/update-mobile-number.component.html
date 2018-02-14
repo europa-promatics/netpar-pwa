@@ -1,0 +1,10 @@
+<div class="modal-content cus-modal">
+	<div class="form-group modal-body text-center ">
+		<p>{{"Login_SecurityQuestions.update" | translate}} {{"Login_SecurityQuestions.mobileNumber" | translate}}</p>
+		<mat-form-field>
+	        <span matPrefix> <i class="cusIco-contact"></i>&nbsp; </span>
+	       	<input matInput placeholder="{{'Login_SecurityQuestions.newMobileNumber' | translate}}" type="text" name="contactNumber" [(ngModel)]="mobileNumber"  type="tel" maxlength="10" [formControl]="complexForm.controls['mobileNumber']" >
+	    </mat-form-field>
+		<button class="btn custom-btn full-width btn-round" (click)="onUpdate()" [disabled]="!complexForm.valid" > {{"Login_SecurityQuestions.update" | translate}} </button>
+	</div>
+</div>

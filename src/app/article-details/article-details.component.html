@@ -1,0 +1,959 @@
+<div class="wrapper" >
+ <!--    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div> -->
+    <div class="loader-box" *ngIf="loading">
+    	<img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+	</div>
+	<app-back-button-navbar></app-back-button-navbar>
+    <div class="cusmain-panel" (click)="forFirstTimeUser()" >
+    	
+		<div class="tb-wrap">
+			<section class="article-sec" *ngIf="articleData">
+				<div class="card cus-card {{this.continueClass}}" [lazy-load-images]="{ rootMargin: '50px' }">
+					<div class="upper-box">
+						<span *ngIf="continueButtonVisible">
+							{{_forContinueButton()}}
+						</span>
+						<div class="inner-card yellow-brd">
+					    	<h4 class="font-400"> {{articleData.headline}} </h4>
+					    </div>
+					    <div class="inner-card dashed-brd">
+					    	<p>{{articleData.tagline}} </p>
+					    	<p class="lekhak">
+					    		<span> <strong> {{"ContentItemView_Scroll1.By" | translate}}: </strong> </span>
+					    		<span class="text-blue lekhak_name" *ngIf="articleData.userList[0]"> {{articleData.userList[0].firstName}} {{articleData.userList[0].lastName}} </span>
+					    		<span class="text-light pull-right"> {{getDate(articleData.dateOfCreation)}} </span>
+					    	</p>
+					    	<p class="m-0 text-right font_12">
+					    		<i> {{articleData.likeCount}} {{"ContentItemView_Scroll1.Like" | translate}} &#x25CF; {{articleData.commentCount}} {{"ContentItemView_Scroll1.Comment" | translate}} &#x25CF; {{articleData.pageView}} {{"ContentItemView_Scroll2.Views" | translate}}  </i>
+					    	</p>
+					    </div>
+				    	<ul class="like-bar dashed-brd">
+			    			<li class="{{likeClass}}">
+			    				<a class="text-danger" (click)="onLike()"><span class="span-icns"> <i class="{{likeIcon}}"></i></span> {{"ContentItemView_Scroll1.Like" | translate}} </a>
+			    			</li>
+			    			<li>
+			    				<a class="text-rose" (click)="onCommentIcon()"><span class="span-icns"> <i class="cusIco-msg-o"></i></span> {{"ContentItemView_Scroll1.Comment" | translate}} </a> 
+			    			</li>
+			    			<li class="{{saveClass}}">
+			    				<a class="text-primary" (click)="onSavePost()" ><span class="span-icns"> <i class="{{saveIcon}}"></i></span> {{"ContentItemView_Scroll1.Save" | translate}} </a> 
+			    			</li>
+			    			<!-- <li class="{{downloadClass}}">
+			    				<a class="text-orange" (click)=" onTagDownloadButton()"><span class="span-icns"> <i class="{{downloadIcon}}"></i></span> {{"ContentItemView_Scroll1.Download" | translate}} </a> 
+			    			</li> -->
+			    		</ul>
+			    	</div>
+
+
+		    		<!-- <div *ngFor="let article of articleData.contentBody">
+		    			<div *ngIf="article.tag=='image'">
+		    				<img src="{{article.url}}">
+		    			</div>
+		    			<div *ngIf="article.tag=='text'">
+		    				<div  [innerHtml]="getSafeContent(article.text)" ></div>
+		    			</div>
+		    		</div> -->
+		    		
+		    		<div class="inner-card" *ngFor="let content of articleData.contentBody;let i=index">
+					  	<div class="form-group" *ngIf="content.tag=='image'" [ngStyle]="{background:content.backgroundColor}">
+					  		<div class="dwnld-box">
+					   			<img [attr.data-src]="content.url" class="img-responsive rad-shad" />
+					   			<span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.url,'image')"> <i class="fa fa-download"></i> </span>
+					   		</div>
+					 	</div>
+						<div class="wrap-data" [ngStyle]="{background:content.backgroundColor}" *ngIf="content.tag=='text'">
+							<div *ngIf="continueButtonVisible==true">
+							   <span class="wrap-text" [innerHtml]="getSafeContent(textFirstSpan)" ></span>
+							   <span  class="morecontent" [innerHtml]="getSafeContent(textSecondSpan)"></span>	
+							</div>
+							<div *ngIf="continueButtonVisible!=true" [innerHtml]="getSafeContent(content.text)"></div>
+						</div>
+				  
+						<div *ngIf="content.tag=='audio'">
+			                <audio *ngIf="getTypeFile(content.url)==true" controls style="width:100%" >
+			                <source [src]="content.url"  type="audio/mpeg" />
+			                Your browser does not support the audio element.
+			               </audio>
+			               <!-- <div class="iframe-video" *ngIf="getTypeFile(content.url)==false" [innerHTML]="getSafeContentt(content.url)"></div>  -->
+			               <!-- <div>
+			               	<iframe width="100%" height="300" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/348839356&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
+			               </div> -->
+			            </div>
+			            
+			            <div *ngIf="content.tag=='video'">
+			                <video  *ngIf="getTypeFile(content.url)==true" id="my-video" controls preload="auto" width="100%" >
+			                    <source [src]="content.url" type="video/mp4">
+			                </video>
+			                 <div class="iframe-video" *ngIf="getTypeFile(content.url)==false" [innerHTML]="getSafeContent(content.url)"></div> 
+			            </div>
+				        <div style="text-align: center;" *ngIf="content.tag=='document'" document>
+				        	<div class="dwnld-box">
+								<img src="./assets/img/JAVA.png" style="display: inline-block;" width="50%">
+							    <span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.url,'document')"> <i class="fa fa-download"></i> </span>
+							</div>
+				        </div>
+				    	<table class="main" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" *ngIf="content.tag=='grid'">
+				            <tbody>
+				                <tr style="text-align: center;">
+				                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
+				                        <div *ngIf="content.audiourl1!=null">
+			                                <audio *ngIf="getTypeFile(content.audiourl1)==true" controls style="width:100%" >
+			                                     <source [src]="content.audiourl1"  type="audio/mpeg" />
+			                                     Your browser does not support the audio element.
+			                               </audio>
+			                               <!-- <div class="iframe-video" *ngIf="getTypeFile(content.audiourl1)==false" [innerHTML]="getSafeContent(content.audiourl1)"></div> -->
+                           				 </div>
+			                            <div *ngIf="content.videourl1!=null">
+			                                <video *ngIf="getTypeFile(content.videourl1)==true" id="my-video" controls preload="auto" width="100%" >
+			                                    <source [src]="content.videourl1" type="video/mp4">
+			                                </video>
+			                                <div class="iframe-video" *ngIf="getTypeFile(content.videourl1)==false" [innerHTML]="getSafeContent(content.videourl1)"></div>
+			                            </div>
+			                            <div class="dwnld-box" *ngIf="content.documenturl1!=null">
+				                        	<img  width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
+				                        	<span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.documenturl1,'document')"> <i class="fa fa-download"></i> </span>
+				                    	</div>
+				                    	<div class="dwnld-box" *ngIf="content.imgurl1!=null">
+				                        	<img  style="width:100%" [src]="content.imgurl1">
+				                        	<span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.imgurl1,'image')"> <i class="fa fa-download"></i> </span>
+				                        </div>
+				                    </td>
+				                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
+				                        <div *ngIf="content.audiourl2!=null">
+			                                <audio *ngIf="getTypeFile(content.audiourl2)==true" controls style="width:100%" >
+			                                    <source [src]="content.audiourl2"  type="audio/mpeg" />
+			                                 Your browser does not support the audio element.
+			                                </audio>
+			                                <!-- <div class="iframe-video" *ngIf="getTypeFile(content.audiourl2)==false" [innerHTML]="getSafeContent(content.audiourl2)"></div> -->
+			                            </div>
+			                            <div *ngIf="content.videourl2!=null">
+			                                <video  *ngIf="getTypeFile(content.videourl2)==true" id="my-video" controls preload="auto" width="100%" >
+			                                <source [src]="content.videourl2" type="video/mp4">
+			                                 </video>
+			                                 <div class="iframe-video" *ngIf="getTypeFile(content.videourl2)==false" [innerHTML]="getSafeContent(content.videourl2)"></div>
+			                            </div>
+			                            <div class="dwnld-box" *ngIf="content.documenturl2!=null">
+				                        	<img  width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
+				                        	<span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.documenturl2,'document')"> <i class="fa fa-download"></i> </span>
+				                    	</div>
+				                    	<div class="dwnld-box" *ngIf="content.imgurl2!=null">
+				                        	<img  style="width:100%" [src]="content.imgurl2">
+				                        	<span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.imgurl2,'image')"> <i class="fa fa-download"></i> </span>
+				                        </div>
+
+				                        <!-- <img *ngIf="content.documenturl2!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
+
+				                        <img *ngIf="content.imgurl2!=null" style="width:100%" [src]="getSafeUrl(content.imgurl2)"> -->
+				                    </td>
+				                    <td style="width: 33.33%;border: 1px dashed #333;min-height: 100px;background-color: #f5f5f5;" >
+								         <div *ngIf="content.audiourl3!=null">
+			                                <audio  *ngIf="getTypeFile(content.audiourl3)==true" controls style="width:100%" >
+				                                <source [src]="content.audiourl3"  type="audio/mpeg" />
+				                                Your browser does not support the audio element.
+			                          		</audio>
+			                            <!-- <div class="iframe-video" *ngIf="getTypeFile(content.audiourl3)==false" [innerHTML]="getSafeContent(content.audiourl3)"></div> -->
+			                            </div>
+			                            <div *ngIf="content.videourl3!=null">
+			                                <video *ngIf="getTypeFile(content.videourl3)==true" id="my-video" controls preload="auto" width="100%" >
+			                                <source [src]="content.videourl3" type="video/mp4">
+			                                </video>
+			                                <div class="iframe-video" *ngIf="getTypeFile(content.videourl3)==false" [innerHTML]="getSafeContent(content.videourl3)"></div>
+			                            </div>
+			                            <div class="dwnld-box" *ngIf="content.documenturl3!=null">
+				                        	<img  width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
+				                        	<span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.documenturl3,'document')"> <i class="fa fa-download"></i> </span>
+				                    	</div>
+				                    	<div class="dwnld-box" *ngIf="content.imgurl3!=null">
+				                        	<img  style="width:100%" [src]="content.imgurl3">
+				                        	<span class="download-bt" *ngIf="content.downloadable==true" (click)="onDownload(content.imgurl3,'image')"> <i class="fa fa-download"></i> </span>
+				                        </div>
+				                        <!-- <img *ngIf="content.documenturl3!=null" width="50%" style="display: inline-block;" src="./assets/img/JAVA.png" >
+				                        <img *ngIf="content.imgurl3!=null" style="width:100%" [src]="getSafeUrl(content.imgurl3)"> -->
+				                    </td>
+				                </tr>
+				            </tbody>
+				        </table>
+				         <div class="builder-element"  *ngIf="content.tag=='callMeBack'">
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button (click)="onCallMeBack()" *ngIf="content.outline==false" [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn success {{callMeBackButtonClass}}" ><i class="cusIco-callme"></i>मला संपर्क कॉल करा </button>
+				                            
+				                            <button (click)="onCallMeBack()"  *ngIf="content.outline==true" [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn not_default {{callMeBackButtonClass}}">
+				                                <span class="text-success">
+				                                    <span class="">
+				                                        <i class="cusIco-callme"></i>
+				                                    </span>
+				                                   मला संपर्क कॉल करा
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+
+				        <div class="builder-element" *ngIf="content.tag=='call'">
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <a (click)="onCall()" href="tel:{{content.phone}}" *ngIf="content.outline==false"  [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn info {{callButtonClass}}"><i class="cusIco-call"></i> कॉल </a>
+				                            <a (click)="onCall()" href="tel:{{content.phone}}" *ngIf="content.outline==true" [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn not_default {{callButtonClass}}">
+				                                <span class="text-info">
+				                                    <span class="">
+				                                        <i class="cusIco-call"></i>
+				                                    </span>
+				                                    कॉल
+				                                </span>
+				                            </a>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				        <div class="builder-element" *ngIf="content.tag=='intrested'" >
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button (click)="onIntersted()" *ngIf="content.outline==false" [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn primary {{interstedButtonClass}}"><i class="cusIco-click"></i>  मला त्यात रुची आहे </button>
+
+				                            <button (click)="onIntersted()" *ngIf="content.outline==true" [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn not_default {{interstedButtonClass}}">
+				                                <span class="text-primary">
+				                                    <span class="">
+				                                        <i class="cusIco-click"></i>
+				                                    </span>
+				                                     मला त्यात रुची आहे
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				        <div class="builder-element" *ngIf="content.tag=='apply'" >
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button (click)="onApply()" *ngIf="content.outline==false"  [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn success {{applyButtonClass}}"><i class="cusIco-check"></i> अर्ज </button>
+
+				                            <button (click)="onApply()" *ngIf="content.outline==true" [ngStyle]="{paddingLeft:content.left, paddingRight: content.right,paddingTop:content.top,paddingBottom:content.bottom}" type="button" class="btn not_default {{applyButtonClass}}">
+				                                <span class="text-success">
+				                                    <span class="">
+				                                        <i class="cusIco-check"></i>
+				                                    </span>
+				                                    अर्ज 
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				        <div class="builder-element" *ngIf="content.tag=='CallToActBtn'">
+				            <button *ngIf="content.btn1==null && content.btn2==null && content.btn3==null" type="button" class="btn custom-btn btn-round">Click  me</button>
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td >
+				                            <span *ngIf="content.btn1=='callmeback'">
+				                                <span  (click)="onCallMeBack()" class="btn success {{callMeBackButtonClass}}" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+				                                	<i class="cusIco-callme"></i>मला संपर्क कॉल करा
+				                                </span>
+
+				                                <span (click)="onCallMeBack()" class="btn not_default {{callMeBackButtonClass}}" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+				                                    <span class="text-success">
+				                                        <span class="">
+				                                            <i class="cusIco-callme"></i>
+				                                        </span>
+				                                        मला संपर्क कॉल करा
+				                                    </span>
+				                                </span>
+
+				                            </span>
+
+				                            <span *ngIf="content.btn1=='Call'">
+				                                <a (click)="onCall()" href="tel:{{content.phone1}}" class="btn info {{callButtonClass}}" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+				                                    <i class="cusIco-call"></i> कॉल
+				                                </a>
+
+				                                <a (click)="onCall()" href="tel:{{content.phone1}}" class="btn not_default {{callButtonClass}}" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+				                                    <span class="text-info">
+				                                        <span class="">
+				                                            <i class="cusIco-call"></i>
+				                                        </span>
+				                                        कॉल
+				                                        
+				                                    </span>
+				                                </a>
+				                            </span>
+
+
+				                            <span *ngIf="content.btn1=='ImInterested'">
+				                                <span class="btn primary {{interstedButtonClass}}" (click)="onIntersted()" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+				                                    <i class="cusIco-click"></i>  मला त्यात रुची आहे
+				                                    
+				                                </span>
+
+				                                <span class="btn not_default" *ngIf="content.outline1==true">
+				                                    <span class="text-primary {{interstedButtonClass}}" (click)="onIntersted()" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}" >
+				                                        <span class="">
+				                                            <i class="cusIco-click"></i>
+				                                        </span>
+				                                         मला त्यात रुची आहे
+				                                        
+				                                    </span>
+				                                </span>
+				                            </span>
+
+				                            <span *ngIf="content.btn1=='Apply'">
+				                                <span class="btn success {{applyButtonClass}}" (click)="onApply()" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+				                                    <i class="cusIco-check"></i> अर्ज
+				                                    
+				                                </span>
+				                                <span class="btn not_default {{applyButtonClass}}" (click)="onApply()" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+				                                    <span class="text-success">
+				                                        <span class="">
+				                                            <i class="cusIco-check"></i>
+				                                        </span>
+				                                        अर्ज
+				                                        
+				                                    </span>
+				                                </span>
+				                            </span>
+
+				                        </td>
+				                        <td>
+				                            <span *ngIf="content.btn2=='callmeback'">
+				                                <span class="btn success {{callMeBackButtonClass}}" (click)="onCallMeBack()" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <i class="cusIco-callme"></i>मला संपर्क कॉल करा
+				                                    
+				                                </span>
+				                                <span class="btn not_default {{callMeBackButtonClass}}" (click)="onCallMeBack()" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <span class="text-success">
+				                                        <span class="">
+				                                            <i class="cusIco-callme"></i>
+				                                        </span>
+				                                       मला संपर्क कॉल करा
+				                                    </span>
+				                                </span>
+				                            </span>
+
+				                            <span *ngIf="content.btn2=='Call'">
+				                                <a class="btn info {{callButtonClass}}" (click)="onCall()" href="tel:{{content.phone2}}" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <i class="cusIco-call"></i> Call
+				                                    
+				                                </a>
+				                                <a class="btn not_default {{callButtonClass}}" (click)="onCall()" href="tel:{{content.phone2}}" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <span class="text-info">
+				                                        <span class="">
+				                                            <i class="cusIco-call"></i>
+				                                        </span>
+				                                       कॉल
+				                                        
+				                                    </span>
+				                                </a>
+				                            </span>
+
+				                            <span *ngIf="content.btn2=='ImInterested'">
+				                                <span class="btn primary {{interstedButtonClass}}"  (click)="onIntersted()" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <i class="cusIco-click"></i>  मला त्यात रुची आहे
+				                                    
+				                                </span>
+				                                <span class="btn not_default {{interstedButtonClass}}" (click)="onIntersted()"  *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <span class="text-primary">
+				                                        <span class="">
+				                                            <i class="cusIco-click"></i>
+				                                        </span>
+				                                         मला त्यात रुची आहे
+				                                        
+				                                    </span>
+				                                </span>
+				                            </span>
+
+				                            <span *ngIf="content.btn2=='Apply'">
+				                                <span class="btn success {{applyButtonClass}}" (click)="onApply()" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <i class="cusIco-check"></i> अर्ज
+				                                    
+				                                </span>
+				                                <span class="btn not_default {{applyButtonClass}}" (click)="onApply()" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+				                                    <span class="text-success">
+				                                        <span class="">
+				                                            <i class="cusIco-check"></i>
+				                                        </span>
+				                                        अर्ज
+				                                        
+				                                    </span>
+				                                </span>
+				                            </span>
+
+				                        </td>
+				                        <td >
+				                            <span *ngIf="content.btn3=='callmeback'">
+				                                <span class="btn success {{callMeBackButtonClass}}" (click)="onCallMeBack()" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+				                                    <i class="cusIco-callme"></i>मला संपर्क कॉल करा
+				                                    
+				                                </span>
+				                                <span class="btn not_default {{callMeBackButtonClass}}" (click)="onCallMeBack()" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+				                                    <span class="text-success">
+				                                        <span class="">
+				                                            <i class="cusIco-callme"></i>
+				                                        </span>
+				                                       मला संपर्क कॉल करा
+				                                        
+				                                    </span>
+				                                </span>
+				                            </span>
+
+				                            <span *ngIf="content.btn3=='Call'">
+				                                <a  href="tel:{{content.phone3}}" class="btn info {{callButtonClass}}" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}" (click)="onCall()">
+				                                    <i class="cusIco-call"></i> कॉल
+				                                    
+				                                </a>
+				                                <a  href="tel:{{content.phone3}}" class="btn not_default {{callButtonClass}}" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}" (click)="onCall()">
+				                                    <span class="text-info">
+				                                        <span class="">
+				                                            <i class="cusIco-call"></i>
+				                                        </span>
+				                                        कॉल
+				                                        
+				                                    </span>
+				                                </a>
+				                            </span>
+
+				                            <span *ngIf="content.btn3=='ImInterested'">
+				                                <span class="btn primary {{interstedButtonClass}}" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}" (click)="onIntersted()">
+				                                    <i class="cusIco-click"></i>  मला त्यात रुची आहे
+				                                    
+				                                </span>
+				                                <span class="btn not_default" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}" (click)="onIntersted()">
+				                                    <span class="text-primary {{interstedButtonClass}}">
+				                                        <span class="">
+				                                            <i class="cusIco-click"></i>
+				                                        </span>
+				                                          मला त्यात रुची आहे
+				                                        
+				                                    </span>
+				                                </span>
+				                            </span>
+
+
+				                            <span *ngIf="content.btn3=='Apply'">
+				                                <span class="btn success {{applyButtonClass}}" (click)="onApply()" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+				                                    <i class="cusIco-check"></i> अर्ज
+				                                    
+				                                </span>
+				                                <span class="btn not_default {{applyButtonClass}}" (click)="onApply()" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+				                                    <span class="text-success">
+				                                        <span class="">
+				                                            <i class="cusIco-check"></i>
+				                                        </span>
+				                                         अर्ज
+				                                        
+				                                    </span>
+				                                </span>
+				                            </span>
+
+				                        </td>
+
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+
+				        <div class="builder-element" *ngIf="content.tag=='like'">
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button *ngIf="content.outline==false"  type="button" class="btn danger {{classForlikeButton}}" (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count',i)">{{countsOnLikeButton}} <i class="cusIco-okay"></i>कडक	 </button>
+				                            <button  *ngIf="content.outline==true" type="button" class="btn not_default {{classForlikeButton}} " (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count',i)">
+				                                <span class="text-danger">
+				                                    {{countsOnLikeButton}}
+				                                    <span class="">
+				                                        <i class="cusIco-okay"></i> 
+				                                    </span>
+				                                     कडक				                                    
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				        <div class="builder-element" *ngIf="content.tag=='comment'" >
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button  *ngIf="content.outline==false" type="button" class="btn rose"  (click)="onCommentIcon()"><i class="cusIco-msg"></i> कमेंट </button>
+
+				                            <button *ngIf="content.outline==true" type="button" class="btn not_default" (click)="onCommentIcon()" >
+				                                <span class="text-rose">
+				                                    <span class="">
+				                                        <i class="cusIco-msg"></i>
+				                                    </span>
+				                                    कमेंट
+				                                   
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				        <div class="builder-element" *ngIf="content.tag=='save'" >
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button  *ngIf="content.outline==false" type="button" class="btn primary {{saveButtonClass}}" (click)="onSavePost()"><i class="cusIco-badge"></i> साठवा </button>
+
+				                            <button *ngIf="content.outline==true" type="button" class="btn not_default {{saveButtonClass}}" (click)="onSavePost()">
+				                                <span class="text-primary">
+				                                    <span class="">
+				                                        <i class="cusIco-badge"></i> 
+				                                    </span>
+				                                    साठवा 
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				        <div class="builder-element" *ngIf="content.tag=='download'">
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button *ngIf="content.outline==false"  type="button" class="btn orange {{downloadButtonClass}}" (click)="onTagDownloadButton()"> <i class="cusIco-donload"></i> डाउनलोड </button>
+
+				                            <button *ngIf="content.outline==true" type="button" class="btn not_default {{downloadButtonClass}}" (click)=" onTagDownloadButton()">
+				                                <span class="text-orange">
+				                                    <span class="">
+				                                        <i class="cusIco-donload"></i> 
+				                                    </span>
+				                                    डाउनलोड
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				         <div class="builder-element" *ngIf="content.tag=='share'">
+				            <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+				                <tbody>
+				                    <tr class="btns">
+				                        <td [ngStyle]="{textAlign:content.aligment}">
+				                            <button (click)="onShare()" *ngIf="content.outline==false" type="button" class="btn warning"><i class="fa fa-share-alt"></i> {{"FloatingButtonScreen_Share.Share" | translate}} </button>
+				                            <button  (click)="onShare()" *ngIf="content.outline==true" type="button" class="btn not_default">
+				                                <span class="text-warning">
+				                                    <span class="">
+				                                        <i class="fa fa-share-alt"></i> 
+				                                    </span>
+				                                    {{"FloatingButtonScreen_Share.Share" | translate}} 
+				                                </span>
+				                            </button>
+				                        </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+				        </div>
+				        <div class="builder-element" *ngIf="content.tag=='userEngBtn'">
+					        <button *ngIf="content.btn1==null && content.btn2==null && content.btn3==null" type="button" class="btn custom-btn btn-round" >Click  me</button>
+					                       
+					        <table class="main user-icons" width="100%" cellspacing="0" cellpadding="0" border="0" align="center" data-type="text-block" style="text-align: center;">
+					            <tbody>
+					                <tr class="btns">
+					                    <td style="" >
+					                        <span *ngIf="content.btn1=='Kadak'">
+					                            <span class="btn danger {{classForlikeButton1}}" (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count1',i)" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                {{countsOnLikeButton1}} <i class="cusIco-okay"></i>  कडक	
+					                                
+					                            </span>
+					                            <span class="btn not_default {{classForlikeButton1}}" (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count1',i)" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <span class="text-danger">
+					                                    {{countsOnLikeButton1}}
+					                                    <span class="">
+					                                        <i class="cusIco-okay"></i>
+					                                    </span>
+					                                     कडक	
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn1=='Comment'">
+					                            <span class="btn rose" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <i class="cusIco-msg"></i> कमेंट
+					                                
+					                            </span>
+					                            <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <span class="text-rose">
+					                                    <span class="">
+					                                        <i class="cusIco-msg"></i>
+					                                    </span>
+					                                    कमेंट
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn1=='Save'">
+					                            <span class="btn primary {{saveButtonClass}}" (click)="onSavePost()" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <i class="cusIco-badge"></i> साठवा
+					                                
+					                            </span>
+					                            <span class="btn not_default {{saveButtonClass}}" (click)="onSavePost()" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <span class="text-primary">
+					                                    
+					                                    साठवा
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn1=='Download'">
+					                            <span class="btn orange {{downloadButtonClass}}" (click)=" onTagDownloadButton()" *ngIf="content.outline1==false" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <i class="cusIco-donload"></i> डाउनलोड
+					                                
+					                            </span>
+
+					                            <span class="btn not_default {{downloadButtonClass}}" (click)=" onTagDownloadButton()" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <span class="text-orange">
+					                                    <span class="">
+					                                        <i class="cusIco-donload"></i>
+					                                    </span>
+					                                    डाउनलोड
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn1=='Share'" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                            <span class="btn warning" *ngIf="content.outline1==false" (click)="onShare()">
+					                                <i class="fa fa-share-alt"></i>
+					                                {{"FloatingButtonScreen_Share.Share" | translate}}
+					                            </span>
+					                            <span class="btn not_default" *ngIf="content.outline1==true" [ngStyle]="{paddingLeft:content.left1, paddingRight: content.right1,paddingTop:content.top1,paddingBottom:content.bottom1,marginLeft:content.mleft1, marginRight: content.mright1,marginTop:content.mtop1,marginBottom:content.mbottom1}">
+					                                <span class="text-warning" (click)="onShare()">
+					                                    <span class="">
+					                                        <i class="fa fa-share-alt"></i>
+					                                    </span>
+					                                    {{"FloatingButtonScreen_Share.Share" | translate}}
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                    </td>
+
+					                    <td style="" >
+					                        <span *ngIf="content.btn2=='Kadak'">
+					                            <span class="btn danger {{classForlikeButton2}}" (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count2',i)" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                {{countsOnLikeButton2}} <i class="cusIco-okay"></i>  कडक	
+					                                
+					                            </span>
+					                            <span class="btn not_default {{classForlikeButton2}}" (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count2',i)" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <span class="text-danger">
+					                                    {{countsOnLikeButton2}}
+					                                    <span class="">
+					                                        <i class="cusIco-okay"></i>
+					                                    </span>
+					                                     कडक	
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn2=='Comment'">
+					                            <span class="btn rose" (click)="onCommentIcon()" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <i class="cusIco-msg"></i> कमेंट
+					                                
+					                            </span>
+					                            <span class="btn not_default" (click)="onCommentIcon()" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <span class="text-rose">
+					                                    <span class="">
+					                                        <i class="cusIco-msg"></i>
+					                                    </span>
+					                                    कमेंट
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn2=='Save'">
+					                            <span class="btn primary {{saveButtonClass}}" (click)="onSavePost()" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <i class="cusIco-badge"></i> साठवा
+					                                
+					                            </span>
+					                            <span class="btn not_default {{saveButtonClass}}" (click)="onSavePost()" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <span class="text-primary">
+					                                    
+					                                    साठवा
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn2=='Download'">
+					                            <span class="btn orange {{downloadButtonClass}}" (click)=" onTagDownloadButton()" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <i class="cusIco-donload"></i> डाउनलोड
+					                                
+					                            </span>
+
+					                            <span class="btn not_default {{downloadButtonClass}}" (click)=" onTagDownloadButton()" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <span class="text-orange">
+					                                    <span class="">
+					                                        <i class="cusIco-donload"></i>
+					                                    </span>
+					                                    डाउनलोड
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn2=='Share'">
+					                            <span class="btn warning" (click)="onShare()" *ngIf="content.outline2==false" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <i class="fa fa-share-alt"></i> {{"FloatingButtonScreen_Share.Share" | translate}}
+					                                
+					                            </span>
+					                            <span class="btn not_default" (click)="onShare()" *ngIf="content.outline2==true" [ngStyle]="{paddingLeft:content.left2, paddingRight: content.right2,paddingTop:content.top2,paddingBottom:content.bottom2,marginLeft:content.mleft2, marginRight: content.mright2,marginTop:content.mtop2,marginBottom:content.mbottom2}">
+					                                <span class="text-warning">
+					                                    <span class="">
+					                                        <i class="fa fa-share-alt"></i>
+					                                    </span>
+					                                    {{"FloatingButtonScreen_Share.Share" | translate}}
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                    </td>
+					                    <td style="" >
+					                        <span *ngIf="content.btn3=='Kadak'" >
+					                            <span class="btn danger {{classForlikeButton3}}" (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count3',i)" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                              {{countsOnLikeButton3}}  <i class="cusIco-okay"></i>  कडक	
+					                                
+					                            </span>
+					                            <span class="btn not_default {{classForlikeButton3}}" (click)="onLikeButtonInContentBody(content.tag,content.orderNo,'count3',i)"  *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <span class="text-danger">
+					                                	{{countsOnLikeButton3}}
+					                                    <span class="">
+					                                        <i class="cusIco-okay"></i>
+					                                    </span>
+					                                     कडक	
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn3=='Comment'">
+					                            <span class="btn rose" (click)="onCommentIcon()"  *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <i class="cusIco-msg"></i> कमेंट
+					                                
+					                            </span>
+					                            <span class="btn not_default" (click)="onCommentIcon()" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <span class="text-rose">
+					                                    <span class="">
+					                                        <i class="cusIco-msg"></i>
+					                                    </span>
+					                                    कमेंट
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn3=='Save'" (click)="onSavePost()">
+					                            <span class="btn primary {{saveButtonClass}}" *ngIf="content.outline3==false" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <i class="cusIco-badge"></i> साठवा
+					                                
+					                            </span>
+					                            <span class="btn not_default {{saveButtonClass}}" *ngIf="content.outline3==true"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <span class="text-primary">
+					                                    
+					                                    साठवा
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn3=='Download'" (click)=" onTagDownloadButton()">
+					                            <span class="btn orange {{downloadButtonClass}}" *ngIf="content.outline3==false"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <i class="cusIco-donload"></i> डाउनलोड
+					                                
+					                            </span>
+
+					                            <span class="btn not_default {{downloadButtonClass}}" *ngIf="content.outline3==true"[ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <span class="text-orange">
+					                                    <span class="">
+					                                        <i class="cusIco-donload"></i>
+					                                    </span>
+					                                    डाउनलोड
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+
+					                        <span *ngIf="content.btn3=='Share'">
+					                            <span class="btn warning" (click)="onShare()" *ngIf="content.outline3==false"  [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <i class="fa fa-share-alt"></i> {{"FloatingButtonScreen_Share.Share" | translate}}
+					                                
+					                            </span>
+					                            <span class="btn not_default" (click)="onShare()" *ngIf="content.outline3==true" [ngStyle]="{paddingLeft:content.left3, paddingRight: content.right3,paddingTop:content.top3,paddingBottom:content.bottom3,marginLeft:content.mleft3, marginRight: content.mright3,marginTop:content.mtop3,marginBottom:content.mbottom3}">
+					                                <span class="text-warning">
+					                                    <span class="">
+					                                        <i class="fa fa-share-alt"></i>
+					                                    </span>
+					                                    {{"FloatingButtonScreen_Share.Share" | translate}}
+					                                    
+					                                </span>
+					                            </span>
+					                        </span>
+					                    </td>
+					                </tr>
+					            </tbody>
+					        </table>
+				    	</div>
+ 					</div>
+
+ 					<div *ngIf="articleData.googleForm==true || articleData.googleForm=='true'">
+    					<iframe  [src]="getSafeUrl(articleData.googleFormUrl)" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0" *ngIf="articleData.googleFormUrl">Loading...</iframe>
+   					</div>
+
+
+		    		<div class="p-5 dashed-brd text-center">
+		    			<button class="btn custom-btn full-width" (click)="onDWnldButton()"> {{"ContentItemView_Scroll1.DownloadApp" | translate}} </button>
+		    		</div>
+		    		<ul class="like-bar dashed-brd">
+		    			<!-- <li>
+		    				<a class="text-info" ><span class="span-icns"> <i class="fa fa-eye"></i></span> {{articleData.pageView}} {{"ContentItemView_Scroll2.Views" | translate}} </a> 
+		    			</li> -->
+		    			<li class="{{likeClass}}">
+		    				<a class="text-danger"  (click)="onLike()"><span class="span-icns"> <i class="{{likeIcon}}"></i></span> {{articleData.likeCount}} {{"ContentItemView_Scroll2.Likes" | translate}}  </a>
+		    			</li>
+		    			<li >
+		    				<a class="text-rose"  (click)="onCommentIcon()"><span class="span-icns"> <i class="cusIco-msg-o"></i></span> {{articleData.commentCount}} {{"ContentItemView_Scroll2.Comments" | translate}}  </a> 
+		    			</li>
+		    			<!--<li class="{{likeClass}}">
+		    				<a class="text-danger" (click)="onLike()"><span class="span-icns"> <i class="{{likeIcon}}"></i></span> {{"ContentItemView_Scroll1.Like" | translate}} </a>
+		    			</li>
+						<li class="{{saveClass}}">
+		    				<a class="text-primary" (click)="onSavePost()" ><span class="span-icns"> <i class="{{saveIcon}}"></i></span> {{"ContentItemView_Scroll1.Save" | translate}} </a> 
+		    			</li> -->
+		    			<li class="{{saveClass}}" (click)="onSavePost()">
+		    				<a class="text-primary" ><span class="span-icns"> <i class="{{saveIcon}}"></i></span> {{articleData.saveCount}} {{"ContentItemView_Scroll2.Saves" | translate}}  </a> 
+		    			</li>
+		    		</ul>
+		    		<div class="p-5 dashed-brd"> <h4 class="font-16 m-0"> {{"ContentItemView_Scroll2.Comments"| translate}} </h4> </div>
+		    		<div class="p-5 dashed-brd">
+		    			<div class="form-group col-mat-12 col-sm-12 col-xs-12 p-0">
+		    				<mat-form-field>
+	                            <textarea matInput [matAutocomplete]="comment" placeholder="{{commentBoxPlaceHolder}}"  rows="3" [(ngModel)]="articleCommentModel.userComment" id="mycomment" #mycomment name="mycomment" (input)="onTransliteration(articleCommentModel.userComment,mycomment)" (keyup)="onKeyUp($event,mycomment)" (click)="clearSuggstion()"></textarea>
+	                            <mat-autocomplete #comment="matAutocomplete" >
+	                                <mat-option *ngFor="let suggestion of appProvider.current.suggestedString" [value]="suggestion" (click)="selectString(suggestion)" (onSelectionChange)="onSuugestionkeyup(suggestion)">
+	                                    <span>{{ suggestion }}</span>
+	                                </mat-option>
+	                            </mat-autocomplete>
+	                           <!--   <ul class="iframe-suggestion" >
+       									     <mat-option *ngFor="let state of appProvider.current.suggestedString" [value]="state" (click)="selectString(state)">
+                                                    <span>{{ state }}</span> 
+                                                    </mat-option>
+           							 <li *ngFor="let suggestion of appProvider.current.suggestedString" (click)="selectString(suggestion)">
+                 						<span>{{ suggestion }}</span> 
+           							 </li>
+          						</ul> -->
+	                       	</mat-form-field>                      	
+		    			</div>
+		    			<div class="col-mat-12 col-sm-12 col-xs-12 p-0 text-right form-group">
+		    				<button class="btn btn-info btn-sm" (click)="onComment()">{{"ContentItemView_Scroll2.send" | translate}}</button>
+		    			</div>
+		    			<div  class="loop-div" *ngIf="latestComment && !viewAllComment">
+	    					<div class="user-img">
+		    					<img [attr.data-src]="getImage(latestComment.userId)" class="img-responsive">
+		    				</div>
+		    				<div>
+		    					<div class="comment-box" >
+				    				<h5 class="m-0"> {{latestComment.userName}} <span class="pull-right"> {{getDateForComment(latestComment.dateOfComment)}} </span> </h5>
+				    				<p>{{latestComment.userComment}}</p>
+			    				</div>
+		    				</div>
+		    				<div class="col-mat-12 col-sm-12 col-xs-12 text-center">
+				    			<a  class="text-primary" (click)="onViewMoreComments()" *ngIf="articleData.user_comments.length>2"><u>{{"ContentItemView_Scroll1.ViewMore" | translate}}</u></a>
+				    		</div>
+		    			</div>
+		    			<div *ngIf="viewAllComment">
+		    				<div  class="loop-div" *ngIf="newComment">
+		    					<div class="user-img">
+			    					<img [attr.data-src]="getImage(newComment.userId)" class="img-responsive">
+			    				</div>
+			    				<div>
+			    					<div class="comment-box" >
+					    				<h5 class="m-0"> {{newComment.userName}} <span class="pull-right"> {{getDateForComment(newComment.dateOfComment)}} </span> </h5>
+					    				<p>{{newComment.userComment}}</p>
+				    				</div>
+			    				</div>
+		    				</div>
+		    				<div  class="loop-div" *ngFor="let comment of comments">
+		    					<div class="user-img">
+			    					<img [attr.data-src]="getImage(comment.userId)" class="img-responsive">
+			    				</div>
+			    				<div>
+			    					<div class="comment-box" >
+					    				<h5 class="m-0"> {{comment.userName}} <span class="pull-right"> {{getDateForComment(comment.dateOfComment)}} </span> </h5>
+					    				<p>{{comment.userComment}}</p>
+				    				</div>
+			    				</div>
+			    			</div>
+		    			</div>
+		    		</div>
+		    		<div class="inner-card dashed-brd" *ngIf="articleData.suggestedArticle==true">
+		    			<h4 class="font-16 m-0"> {{"ContentItemView_Scroll2.SuggestedArticles" | translate}} </h4>
+		    		</div>
+		    		<div class="inner-card" *ngIf="articleData.suggestedArticleList">
+		    			<div class="suggested-ulist">
+			    			<ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">
+						        <div ngxSlickItem class="slide slick-slide" *ngFor="let suggestedArticle of articleData.suggestedArticleList">
+							        <a (click)="onSuggestedArticle(suggestedArticle)"><img src="{{suggestedArticle.thumbnailPicture}}"> 
+						    			<div class="suggested-div color-red">
+						    				<div class="suggested-text">{{suggestedArticle.tagline}} </div>
+						    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+						    			</div>
+						    		</a>
+						    	</div> 
+						    </ngx-slick>
+					    </div>
+		    		</div>
+		    		<div class="bg-gradient" *ngIf="continueButtonVisible"> </div>
+			    </div>
+
+			    <div class="col-md-12 col-sm-12 col-xs-12 p-0" *ngIf="continueButtonVisible">
+			    	<button class="btn bg-blue full-width read-btn" (click)="onContinueReading()" > {{"ContentItemView_Scroll1.ContinueReading" | translate}} <i class="fa fa-chevron-down"></i> </button>
+			    </div>
+			    
+			</section>
+
+			<div class="instr-sec" (click)="onGuideTextImage()" *ngIf="guideTextImage">
+                <div class="instr-text" *ngIf="downloadGuideText">
+                    <p> {{"GuideScreen.toViewDownloaded" | translate}} </p>
+                </div>
+                <div class="instr-img">
+		            <div class="instr-sec">
+		                <div class="instr-text"*ngIf="savedGuideText">
+		                    <p> {{"GuideScreen.toViewSaved" | translate}}</p>
+		                </div>
+		                <div class="instr-img">
+		                    <img src="./assets/img/arrow.png" class="img-responsive" />
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<app-footer></app-footer>
+	</div>
+</div>

@@ -1,0 +1,251 @@
+<div class="wrapper">
+	<div class="loader-box" *ngIf="loading">
+    	<img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+	</div>
+	<app-back-button-navbar></app-back-button-navbar>
+    <div class="cusmain-panel" (click)="navRemove()">
+    	<!-- 6 different listing view template  -->
+		<div class="tb-wrap" *ngIf="articleDataAtZeroIndex" [lazy-load-images]="{ rootMargin: '50px' }">
+			<section class="article-sec" *ngIf="listingViewFormat=='Listing-view Template One' || listingViewFormat=='Listing-view Template Seven'">
+				<div class="card cus-card">
+					<div >
+		    			<div class="list-view" >
+			    			<div class="big-view" (click)="onArticle(articleDataAtZeroIndex)">
+			    				<div class="innerbig-view">
+			    					<img [attr.data-src]="articleDataAtZeroIndex.horizontalPicture"  class="img-effect img-responsive" *ngIf="articleDataAtZeroIndex.horizontalPicture" />
+			    					<img src="./assets/img/noImage1.jpg"  class="img-effect img-responsive" *ngIf="!articleDataAtZeroIndex.horizontalPicture" />
+			    					<p class="overlay-text"> {{articleDataAtZeroIndex.headline}} </p>
+			    				</div>
+			    			</div>
+			    			<div class="rect-img view-lists grid-2" *ngFor="let article of allArticles;let i=index">
+						        <a  class="{{colorClass(i)}}" (click)="onArticle(article)">
+						        	<img [attr.data-src]="article.thumbnailPicture" *ngIf="article.thumbnailPicture"> 
+						        	<img src="./assets/img/noImage1.jpg" *ngIf="!article.thumbnailPicture"> 
+					    			<div class="suggested-div">
+					    				<div class="line"></div>
+					    				<div class="suggested-text">{{article.headline.slice(0,20)}}</div>
+					    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+					    			</div>
+					    			<div class="detail-text"> {{article.tagline.slice(0,25)}} </div>
+					    		</a>
+					    	</div>
+					    </div>
+					</div>
+				</div>
+			</section>
+			<section class="article-sec" *ngIf="listingViewFormat=='Listing-view Template Two'">
+				<div class="card cus-card">
+					<div class="list-view">
+		    			<div class="big-view" (click)="onArticle(articleDataAtZeroIndex)">
+		    				<div class="innerbig-view">
+		    					<img [attr.data-src]="articleDataAtZeroIndex.horizontalPicture" class="img-effect img-responsive" *ngIf="articleDataAtZeroIndex.horizontalPicture" />
+		    					<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!articleDataAtZeroIndex.horizontalPicture" />
+		    					<p class="overlay-text">{{articleDataAtZeroIndex.headline}} </p>
+		    				</div>
+		    			</div>
+		    			<div class="temp-2 view-lists grid-2 list-view2" *ngFor="let article of allArticles;let i=index">
+					        <a  class="{{colorClass(i)}}" (click)="onArticle(article)">
+				    			<div class="line"></div>
+				    			<div class="suggested-div">
+				    				<div class="suggested-text">{{article.headline.slice(0,20)}}</div>
+				    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+				    			</div>
+					        	<img [attr.data-src]="article.thumbnailPicture" *ngIf="article.thumbnailPicture">
+					        	<img src="./assets/img/noImage1.jpg" *ngIf="!article.thumbnailPicture"> 
+				    			<div class="list-text-wrap"> {{article.tagline.slice(0,25)}}</div>
+				    		</a>
+				    	</div> 	
+					</div>
+				</div>
+			</section>
+			<section class="article-sec" *ngIf="listingViewFormat=='Listing-view Template Three'">
+				<div class="card cus-card">
+	    			<div class="list-view3 list-view7">
+		    			<div class="big-view" (click)="onArticle(articleDataAtZeroIndex)">
+		    				<div class="innerbig-view">
+		    					<img [attr.data-src]="articleDataAtZeroIndex.horizontalPicture" class="img-responsive" *ngIf="articleDataAtZeroIndex.horizontalPicture" />
+		    					<img src="./assets/img/noImage1.jpg" class="img-responsive" *ngIf="!articleDataAtZeroIndex.horizontalPicture" />
+		    					<p class="overlay-text">{{articleDataAtZeroIndex.headline}} </p>
+		    				</div>
+		    			</div>
+		    			<div class="view-lists grid-1"  *ngFor="let article of allArticles;let i=index">
+					        <a  class="{{colorClass(i)}}" (click)="onArticle(article)">
+					        	<img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive" *ngIf="article.thumbnailPicture">
+					        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!article.thumbnailPicture"> 
+
+				    			<div class="list-text-wrap one-heading">
+					    			<div class="suggested-div">
+					    				<div class="suggested-text">{{article.headline.slice(0,20)}} </div>
+					    			</div>
+					    			<div class="detail-text"> {{article.tagline.slice(0,25)}} </div>
+				    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+					    		</div>
+				    			<div class="line"></div>
+				    		</a>
+				    	</div>	
+				    </div>
+				</div>
+			</section>
+			<section class="article-sec" *ngIf="listingViewFormat=='Listing-view Template Four'">
+				<div class="card cus-card">
+	    			<div class="list-view list-view7">
+		    			<div class="big-view" (click)="onArticle(articleDataAtZeroIndex)">
+		    				<div class="innerbig-view">
+		    					<img [attr.data-src]="articleDataAtZeroIndex.horizontalPicture" class="img-effect img-responsive" *ngIf="articleDataAtZeroIndex.horizontalPicture" />
+		    					<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!articleDataAtZeroIndex.horizontalPicture" />
+		    					<p class="overlay-text">{{articleDataAtZeroIndex.headline}} </p>
+		    				</div>
+		    			</div>
+		    			<div *ngFor="let article of allArticles;let i = index" class="loop-div {{getclass(i)}}">
+		    				<div class="view-lists grid-1" *ngIf="i%6==0 || i%6==1 || i%6==2">
+						        <a  class="{{colorClass(i)}}" (click)="onArticle(article)">
+						        	<img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive" *ngIf="article.thumbnailPicture"> 
+						        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!article.thumbnailPicture"> 
+
+					    			<div class="list-text-wrap one-heading">
+						    			<div class="suggested-div">
+						    				<div class="suggested-text">{{article.headline.slice(0,20)}} </div>
+						    			</div>
+						    			<div class="detail-text"> {{article.tagline.slice(0,25)}} </div>
+					    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+						    		</div>
+					    			<div class="line"></div>
+					    		</a>
+					    	</div>
+					    	<div class="view-lists grid-3" *ngIf="i%6==3 || i%6==4 || i%6==5">
+						        <a  class="{{colorClass(i)}}" (click)="onArticle(article)">
+						        	<img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive" *ngIf="article.thumbnailPicture"> 
+						        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!article.thumbnailPicture"> 
+					    			<div class="suggested-div">
+					    				<div class="line"></div>
+					    				<div class="suggested-text">{{article.tagline.slice(0,20)}} </div>
+					    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+					    			</div>
+					    			<div class="detail-text"> {{article.headline.slice(0,25)}} </div>
+					    		</a>
+				    		</div>
+		    			</div>
+				    </div>
+				</div>
+			</section>
+			<section class="article-sec" *ngIf="listingViewFormat=='Listing-view Template Five'">
+				<div class="card cus-card">
+	    			<div class="list-view3">
+		    			<div class="big-view" (click)="onArticle(articleDataAtZeroIndex)">
+		    				<div class="innerbig-view">
+		    					<img [attr.data-src]="articleDataAtZeroIndex.horizontalPicture" class="img-effect img-responsive" *ngIf="articleDataAtZeroIndex.horizontalPicture" />
+		    					<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!articleDataAtZeroIndex.horizontalPicture" />
+		    					<p class="overlay-text">{{articleDataAtZeroIndex.headline}}</p>
+		    				</div>
+		    			</div>
+		    			<div class="view-lists" *ngFor="let article of allArticles;let i=index">
+					        <a  class="{{colorClass(i)}}" (click)="onArticle(article)">
+					        	<div class="simple-list">
+					    			<div class="suggested-div">
+					    				<div class="suggested-text">{{article.headline.slice(0,20)}}</div>
+					    			</div>
+					    			<div class="detail-text">{{article.tagline.slice(0,25)}}</div>
+				    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+					    		</div>
+				    			<div class="line"></div>
+				    		</a>
+				    	</div>				    	
+				    </div>
+				</div>
+			</section>
+			<section class="article-sec" *ngIf="listingViewFormat=='Listing-view Template Six'">
+				<div class="card cus-card">
+	    			<div class="list-view list-view7">
+		    			<div class="big-view" (click)="onArticle(articleDataAtZeroIndex)">
+		    				<div class="innerbig-view">
+		    					<img [attr.data-src]="articleDataAtZeroIndex.horizontalPicture" class="img-effect img-responsive" *ngIf="articleDataAtZeroIndex.horizontalPicture" />
+		    					<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!articleDataAtZeroIndex.horizontalPicture" />
+		    					<p class="overlay-text"> {{articleDataAtZeroIndex.headline}} </p>
+		    				</div>
+		    			</div>
+		    			<div *ngFor="let article of allArticles;let i = index" class="loop-div {{getclass(i)}}">
+		    			<div class="view-lists grid-1" *ngIf="i%6==0">
+					        <a  class="color-yellow" (click)="onArticle(article)">
+					        	<img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive"> 
+				    			<div class="list-text-wrap one-heading">
+				    				<div class="text-red"> {{article.sectionName}} </div>
+					    			<div class="suggested-div">
+					    				<div class="suggested-text" *ngIf="article.headline">{{article.headline.slice(0,20)}} </div>
+					    			</div>
+					    			<div class="detail-text" *ngIf="article.tagline"> {{article.tagline.slice(0,25)}} </div>
+					    		</div>
+			    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+				    			<div class="line"></div>
+				    		</a>
+				    	</div>
+					    <div class="view-lists grid-1 right-view" *ngIf="i%6==1">
+					        <a class="color-red" (click)="onArticle(article)">
+				    			<div class="list-text-wrap one-heading">
+				    				<div class="text-red"> {{article.sectionName}} </div>
+					    			<div class="suggested-div">
+					    				<div class="suggested-text" *ngIf="article.headline">{{article.headline.slice(0,25)}}</div>
+					    			</div>
+					    			<div class="detail-text" *ngIf="article.tagline">{{article.headline.slice(0,20)}}</div>
+					    		</div>
+					        	<img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive"> 
+			    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+				    			<div class="line"></div>
+				    		</a>
+				    	</div>
+				    	<div class="view-lists grid-1" *ngIf="i%6==2">
+					        <a  class="color-pink" (click)="onArticle(article)">
+					        	<img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive"> 
+				    			<div class="list-text-wrap one-heading">
+				    				<div class="text-red"> {{article.sectionName}} </div>
+					    			<div class="suggested-div">
+					    				<div class="suggested-text" *ngIf="article.headline">{{article.headline.slice(0,25)}} </div>
+					    			</div>
+					    			<div class="detail-text" *ngIf="article.tagline"> {{article.tagline.slice(0,20)}}</div>
+					    		</div>
+			    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+				    			<div class="line"></div>
+				    		</a>
+			    		</div>
+			    		<div class="view-lists grid-3" *ngIf="i%6==3">
+					        <a  class="color-purple" (click)="onArticle(article)"><img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive" *ngIf="article.thumbnailPicture"> 
+						        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!article.thumbnailPicture"> 
+				    			<div class="suggested-div">
+				    				<div class="line"></div>
+				    				<div class="suggested-text">{{article.sectionName}}</div>
+				    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+				    			</div>
+				    			<div class="detail-text" *ngIf="article.headline"> {{article.headline.slice(0,25)}}</div>
+				    		</a>
+			    		</div>
+				    	<div class="view-lists grid-3" *ngIf="i%6==4">
+					        <a  class="color-green" (click)="onArticle(article)"><img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive" *ngIf="article.thumbnailPicture"> 
+						        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!article.thumbnailPicture"> 
+				    			<div class="suggested-div">
+				    				<div class="line"></div>
+				    				<div class="suggested-text">{{article.sectionName}}</div>
+				    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+				    			</div>
+				    			<div class="detail-text" *ngIf="article.headline"> {{article.headline.slice(0,25)}}</div>
+				    		</a>
+				    	</div>
+				    	<div class="view-lists grid-3" *ngIf="i%6==5">
+					        <a  class="color-yellow" (click)="onArticle(article)"><img [attr.data-src]="article.thumbnailPicture" class="img-effect img-responsive" *ngIf="article.thumbnailPicture"> 
+						        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!article.thumbnailPicture"> 
+				    			<div class="suggested-div">
+				    				<div class="line"></div>
+				    				<div class="suggested-text">{{article.sectionName}}</div>
+				    				<div class="suggested-icons"><i class="material-icons">arrow_forward</i></div>
+				    			</div>
+				    			<div class="detail-text" *ngIf="article.headline"> {{article.headline.slice(0,25)}}</div>
+				    		</a>
+				    	</div>
+	    			</div>
+
+				    </div>
+
+				</div>
+			</section>
+			<app-footer></app-footer>
+		</div>
+	</div>
+</div>

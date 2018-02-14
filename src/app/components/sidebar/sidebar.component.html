@@ -1,0 +1,125 @@
+<div class="logo">
+    <a routerLink="/Home"  class="simple-text" (click)="navRemove()">
+        <div class="logo-img">
+            <img src="./assets/img/logo.png"/>
+        </div>
+        नेटपर
+    </a>
+</div>
+    <div class="sidebar-wrapper ps-container">
+        <div class="nav-container">
+            <ul class="nav">
+                <li routerLinkActive="active" >
+                    <a routerLink="/Home"   (click)="navRemove()">
+                        <i class="material-icons">home</i>
+                        <p>{{"MenuScreen.Home" | translate}}</p>
+                    </a>
+                </li>
+                <li >
+                    <a data-toggle="collapse" href="#profile" aria-expanded="false" >
+                        <i class="cusIco-profil"></i>
+                        <p>{{"MenuScreen.MyAccount" | translate}}<b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="profile" aria-expanded="false">
+                        <ul class="nav">
+                            <li routerLinkActive="active">
+                                <a routerLink="/account"  (click)="onSavedArticles()"> 
+                                    <p>{{"MenuScreen.Profile" | translate}}</p>
+                                </a>
+                            </li>
+                            <li routerLinkActive="active">
+                                <a routerLink="/saved-articles"  (click)="onSavedArticles()"> 
+                                    <p>{{"MenuScreen.ViewMySavedItems" | translate}}</p>
+                                </a>
+                            </li>
+                            <li routerLinkActive="active">
+                                <a  (click)="onMyDownloads()"> 
+                                    <p>{{"MenuScreen.ViewMyDownloadedItems" | translate}}</p>
+                                </a>
+                            </li>
+                            <li routerLinkActive="active">
+                                <a routerLink="/contributions"  (click)="onMyContriBution()"> 
+                                    <p>{{"MenuScreen.ViewMyContributions" | translate}}</p>
+                                </a>
+                            </li>
+                            <li routerLinkActive="active">
+                                <a   (click)="onFriends()"> 
+                                    <p>{{"MenuScreen.FriendsOnTheNetwork" | translate}}</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li routerLinkActive="active" >
+                    <a routerLink="/submit-content"  (click)="navRemove()"> 
+                        <i class="material-icons">pie_chart</i>
+                        <p>{{"MenuScreen.Contribute" | translate}}</p>
+                    </a>
+                </li>
+                <li routerLinkActive="active" >
+                    <a   (click)="onInviteFreinds()"> 
+                        <i class="material-icons">drafts</i>
+                        <p>{{"MenuScreen.InviteFriends" | translate}}</p>
+                    </a>
+                </li>
+                <li >
+                    <a data-toggle="collapse" href="#section" aria-expanded="false" >
+                        <i class="material-icons">dashboard</i>
+                        <p>{{"MenuScreen.section" | translate}}<b class="caret"></b></p>
+                    </a>
+                    <div class="collapse" id="section" aria-expanded="false">
+                        <ul class="nav">
+                            <li *ngFor="let sec of sections;let i=index" routerLinkActive="active">
+                                <a data-toggle="collapse" href="#{{i}}" aria-expanded="false" (click)="onSection(sec)" >
+                                    <p >{{sec.sectionName}}<b class="caret"></b> </p>
+                                </a>
+                                <div class="collapse" id="{{i}}" aria-expanded="false">
+                                    <ul class="nav">
+                                        <li *ngFor="let category of sec.section_categories;let j=index" routerLinkActive="active">
+                                            <a data-toggle="collapse" href="#sec_{{j}}" aria-expanded="false" (click)="onCategory(category)">
+                                                <p>{{category.categoryName}}<b class="caret"></b> </p>
+                                            </a>
+                                            <div class="collapse" id="sec_{{j}}" aria-expanded="false">
+                                                <ul class="nav">
+                                                    <li *ngFor="let subCategory of category.section_subcategories" routerLinkActive="active">
+                                                        <a data-toggle="collapse" aria-expanded="false"   (click)="onSubCategory(subCategory)"> 
+                                                            <p>{{subCategory.subCategoryName}}</p>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li routerLinkActive="active">
+                    <a   (click)="onRateus()"> 
+                        <i class="material-icons">star</i>
+                        <p>{{"MenuScreen.Rateus" | translate}}</p>
+                    </a>
+                </li>
+                <li routerLinkActive="active" >
+                    <a   (click)="onAboutUs()"> 
+                        <i class="material-icons">info</i>
+                        <p>{{"MenuScreen.Aboutus" | translate}}</p>
+                    </a>
+                </li>
+                <li routerLinkActive="active" >
+                    <a   (click)="onPrivacyPolicy()"> 
+                        <i class="material-icons">library_books</i>
+                        <p>{{"MenuScreen.privacyPolicy" | translate}}</p>
+                    </a>
+                </li>
+                <li routerLinkActive="active" >
+                    <a routerLink="/Faq"  (click)="navRemove()"> 
+                        <i class="fa fa-handshake-o"></i>
+                        <p>{{"FloatingButtonScreen_Help.Help" | translate}}</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>

@@ -1,0 +1,50 @@
+<div class="modal-content cus-modal">
+    <div class="modal-header text-center">
+        <h4 class="m-t-0"> {{'Login_SecurityQuestions.anserSecurityQuestions' | translate}}  </h4>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="stateData">
+                <p><strong>{{"Login_SecurityQuestions.Ques" | translate}}:</strong> {{"Login_SecurityQuestions.stateQues" | translate}}</p>
+                <mat-form-field>
+                    <mat-select placeholder="{{'Login_SecurityQuestions.State' | translate}}" name="state" [(ngModel)]="securityModel.state" [formControl]="complexForm.controls['state']">
+                        <mat-option  [value]="stateData.name" (click)="onState(stateData)"> {{stateData.hindiName}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                 <div style="color: #F44336" *ngIf="!complexForm.controls['state'].valid  && ( complexForm.controls['state'].touched)">
+                    <div *ngIf="complexForm.controls['state'].errors.required">
+                        {{"Login_SecurityQuestions.stateRequired" | translate}}
+                    </div>
+                 </div>
+            </div>
+            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                <p><strong>{{"Login_SecurityQuestions.Ques" | translate}}:</strong>{{"Login_SecurityQuestions.districtQues" | translate}}</p>
+                <mat-form-field>
+                    <mat-select placeholder="{{'Login_SecurityQuestions.District' | translate}}"  name="District" [(ngModel)]="securityModel.district" [formControl]="complexForm.controls['district']">
+                        <mat-option [value]="district.name" *ngFor="let district of districtData" (click)="onDistrict(district)"> {{district.hindiName}} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <div style="color: #F44336" *ngIf="!complexForm.controls['district'].valid  && ( complexForm.controls['district'].touched)">
+                    <div *ngIf="complexForm.controls['district'].errors.required">
+                        {{"Login_SecurityQuestions.districtRequired" | translate}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                <p><strong>{{"Login_SecurityQuestions.Ques" | translate}}:</strong> {{"Login_SecurityQuestions.blockQues" | translate}}</p>
+                <mat-form-field>
+                    <mat-select placeholder="{{'Login_SecurityQuestions.Block' | translate}}" name="Block" [(ngModel)]="securityModel.block" [formControl]="complexForm.controls['block']">
+                        <mat-option [value]="block.name" *ngFor="let block of blockData"> {{block.hindiName}} </mat-option >
+                    </mat-select>
+                </mat-form-field>
+                 <div style="color: #F44336" *ngIf="!complexForm.controls['block'].valid  && ( complexForm.controls['block'].touched)">
+                        <div *ngIf="complexForm.controls['block'].errors.required">
+                            {{"Login_SecurityQuestions.blockRequired" | translate}}
+                        </div>
+                 </div>
+            </div>
+            <button class="btn custom-btn full-width btn-round" [disabled]="!complexForm.valid" (click)="onOk()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+        </div>
+    </div>
+</div>

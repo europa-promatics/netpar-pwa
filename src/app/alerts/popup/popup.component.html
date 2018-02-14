@@ -1,0 +1,285 @@
+
+
+<div class="modal-content cus-modal" *ngIf="message=='something went wrong'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"errorMessage.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"errorMessage.somethingWentWrong" | translate}}</p>
+		<p>{{"errorMessage.tryLater" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='user already registered'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"LoginScreen_SignUp.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"LoginScreen_SignUp.alreadyRegistered" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='incorrect mobile number'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"Login_ErrorMessage_IncorrectMobileNumber.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMessage_IncorrectMobileNumber.incorrectMobileNumber" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}}</button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='Mobile Number not matching'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMessage_MobileNumbernotenteredcorrectly.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMessage_MobileNumbernotenteredcorrectly.notRegistered" | translate }}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_MobileNumbernotenteredcorrectly.ok" | translate }} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='Invalid User'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMessage_MobileNumbernotenteredcorrectly.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center">
+		<p>{{"Login_ErrorMessage_MobileNumbernotenteredcorrectly.notRegistered" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onSignup()" > {{"WelcomeScreen.SignUp" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='Only mobile number is matching'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMessage_RecheckYourDetails.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMessage_RecheckYourDetails.recheckDetails" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='First Name and Last Name not matching'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"Login_ErrorMessage_RecheckYourDetails.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMessage_RecheckYourDetails.recheckDetails" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='entered detail does not match'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"Login_ErrorMessage_RecheckYourDetails.sorry" | translate}}  </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMessage_RecheckYourDetails.recheckDetails" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='gender or dob not matched'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMesage_SecurityQuestionAnswerisincorrect.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMesage_SecurityQuestionAnswerisincorrect.incorrectAnswer" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='Invalid otp'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"errorMessage.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"errorMessage.invalidOtp" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onResend()" > {{"OTPScreen.ResendOTP" | translate}} </button>
+		<a class="btn custom-btn full-width btn-round" href="https://api.whatsapp.com/send?phone=918879732726&text=हा%20नेटपरवर%20मदत" > {{"OTPScreen_ErrorMessage1.Help" | translate}} </a>
+	</div>
+</div>
+
+
+<div class="modal-content cus-modal" *ngIf="message=='want to update new number'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMesage_UpdateYourMobileNumber.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMesage_UpdateYourMobileNumber.updateMobile" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onUpdate()" > {{"Login_ErrorMesage_UpdateYourMobileNumber.yes" | translate}} </button>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()"> {{"Login_ErrorMesage_UpdateYourMobileNumber.no" | translate}}</button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='mobile number updated'">
+	<div class="modal-header text-center text-success">
+		<h1 class="close-icon m-0"> <i class="material-icons">check_circle</i></h1>	
+		<h4 class="m-t-0"> Success </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>Your Mobile Number is updated Successfuly</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onUpdatedSuccessfuly()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+
+<div class="modal-content cus-modal" *ngIf="message=='welcome back'">
+	<div class="modal-header text-center text-success">
+		<h1 class="close-icon m-0"> <i class="material-icons">check_circle</i></h1>	
+		<h4 class="m-t-0"> {{"Login_SuccessfulSignIn.Welcomeback" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_SuccessfulSignIn.signInSuccessfull" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" >{{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}}  </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='you are not registered'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"errorMessage.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_ErrorMessage_MobileNumbernotenteredcorrectly.notRegistered" | translate}}</p>
+		
+		<button class="btn custom-btn full-width btn-round" (click)="onSignup()" > {{"WelcomeScreen.SignUp" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='please Signup'">
+	<div class="modal-body text-center ">
+		<p>{{"LoginScreen_SignIn.NewUser" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onSignup()" > {{"WelcomeScreen.SignUp" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='Download from playstore'">
+	<div class="modal-body text-center ">
+		<p>{{"download.downloadAppFromPlaystore" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onDownload()" > {{"ContentItemView_Scroll2.Donwload" | translate}} </button>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()"> {{"Login_ErrorMesage_UpdateYourMobileNumber.no" | translate}}</button>
+	</div>
+</div>
+
+
+
+<div class="modal-content cus-modal" *ngIf="message=='state is incorrect'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMesage_UpdateYourMobileNumber.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_SecurityQuestions.stateIncorrect" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onWrongSecurityAnswers('state')"> {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='district is incorrect'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMesage_UpdateYourMobileNumber.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_SecurityQuestions.districtIncorrect" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onWrongSecurityAnswers('district')"> {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='block is incorrect'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMesage_UpdateYourMobileNumber.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_SecurityQuestions.blockIncorrect" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onWrongSecurityAnswers('block')"> {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+
+<div class="modal-content cus-modal" *ngIf="message=='dob is incorrect'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMesage_UpdateYourMobileNumber.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_SecurityQuestions.dobIncorrect" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onWrongSecurityAnswers('dob')"> {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='gender is incorrect'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0"> {{"Login_ErrorMesage_UpdateYourMobileNumber.sorry" | translate}} </h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p>{{"Login_SecurityQuestions.genderIncorrect" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onWrongSecurityAnswers('gender')"> {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content logout-pop cus-modal" *ngIf="message=='do you want to logout'">
+	<div class="modal-header text-center">
+		<h6 class="m-t-0"> {{"logout.wantToLogout" | translate}} </h6>
+	</div>
+	<div class="modal-body text-center ">
+		<button class="btn custom-btn full-width btn-round" (click)="onLogout()" > {{"logout.yes" | translate}} </button>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()"> {{"logout.no" | translate}}</button>
+	</div>
+</div>
+
+
+
+<div class="modal-content cus-modal " *ngIf="message=='contribution submitted successfully'">
+	<div class="modal-header text-center text-success">
+		<h1 class="close-icon m-0"> <i class="material-icons">check_circle</i></h1>	
+		<h4 class="m-t-0"> {{"ContributionForm.success" |translate}} </h4>
+	</div>
+	<div class="modal-body text-center three-btn">
+		<p>{{"ContributionForm.yourContributionHasbeenSubmitted"| translate}}</p>
+		<button class="btn custom-btn btn-round" (click)="onViewPost()"> आपले पोस्ट पहा </button>
+		<button class="btn custom-btn btn-round" (click)="onContinueBrowsing()"> ब्राउझिंग सुरू ठेवा </button>
+		<button class="btn custom-btn btn-round" (click)="onPostOneMore()"> आणखी एक पोस्ट करा </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="message=='are you sure you want to remove attached media'">
+	<div class="modal-body text-center ">
+		<p>{{"ContributionForm.doYouWantRemoveAddedMedia" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onRemove()">{{"Login_ErrorMesage_UpdateYourMobileNumber.yes" | translate}} </button>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()"> {{"Login_ErrorMesage_UpdateYourMobileNumber.no" | translate}}</button>
+	</div>
+</div>
+
+
+<div class="modal-content cus-modal" *ngIf="message=='Are you sure you want to remove Downloaded item'">
+	<div class="modal-body text-center ">
+		<p>{{"ContributionForm.doYouWantRemoveDownloadedMedia" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onRemove()">{{"Login_ErrorMesage_UpdateYourMobileNumber.yes" | translate}} </button>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()"> {{"Login_ErrorMesage_UpdateYourMobileNumber.no" | translate}}</button>
+	</div>
+</div>
+
+
+<div class="modal-content cus-modal" *ngIf="message=='Are you sure you want to remove profile picture'">
+	<div class="modal-body text-center ">
+		<p>{{"ContributionForm.doYouWantRemoveProfileImage" | translate}}</p>
+		<button class="btn custom-btn full-width btn-round" (click)="onRemove()">{{"Login_ErrorMesage_UpdateYourMobileNumber.yes" | translate}} </button>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()"> {{"Login_ErrorMesage_UpdateYourMobileNumber.no" | translate}}</button>
+	</div>
+</div>

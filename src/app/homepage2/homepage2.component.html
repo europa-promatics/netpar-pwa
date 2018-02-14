@@ -1,0 +1,59 @@
+<div class="wrapper">
+	<div class="loader-box" *ngIf="loading">
+    	<img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+	</div>
+    <app-back-button-navbar></app-back-button-navbar>
+    <div class="cusmain-panel" (click)="navRemove()" [lazy-load-images]="{ rootMargin: '50px' }" *ngIf="subCategories">
+		<div class="header-extra" ></div>
+		<section class="homepage-sec tb-wrap">
+			<!-- 4 different sub-category template -->
+		    <div class="homepage-listing" *ngIf="subCategoryTemplateStyle=='SubCategory-view Template Four'">
+			    <ul class="homepage-ulist">
+			    	<li class="{{bgClass(i)}}" *ngFor="let subCategory of subCategories; let i=index"> 
+			    		<a (click)="onSubcategory(subCategory)"> {{subCategory.subCategoryName}} </a>
+			    	</li>
+			    </ul>
+		    </div>
+		    <div class="homepage2-listing" *ngIf="subCategoryTemplateStyle=='SubCategory-view Template Two'">
+			    <ul class="homepage2-ulist">
+			    	<li class="rect-list" *ngFor="let subCategory of subCategories">
+			    		<a (click)="onSubcategory(subCategory)" >
+			    			<img [attr.data-src]="subCategory.thumbnailImage" *ngIf="subCategory.thumbnailImage"> 
+			    			<img src="./assets/img/noImage1.jpg"  *ngIf="!subCategory.thumbnailImage">
+			    		<p>{{subCategory.subCategoryName}} </p> </a>
+			    	</li>
+			    </ul>
+		    </div>
+		    <div class="homepage2-listing" *ngIf="subCategoryTemplateStyle=='SubCategory-view Template One'">
+			    <ul class="homepage2-ulist">
+			    	<li *ngFor="let subCategory of subCategories">
+			    		<a  (click)="onSubcategory(subCategory)" >
+			    			<img [attr.data-src]="subCategory.thumbnailImage" *ngIf="subCategory.thumbnailImage" > 
+			    			<img src="./assets/img/noImage1.jpg"  *ngIf="!subCategory.thumbnailImage">
+			    		<p>{{subCategory.subCategoryName}} </p> </a>
+			    	</li>	
+			    </ul>
+		    </div>
+		    <div *ngIf="subCategoryTemplateStyle=='SubCategory-view Template Three'">
+		    	 <ul class="homepage-ulist sec">
+			    	<li *ngFor="let subCategory of subCategories; let i=index">
+			    		<div (click)="onSubcategory(subCategory)" class="homepage-bg" [ngStyle]="{'background-image': 'url(' + subCategory.horigontalImage + ')'}" *ngIf="subCategory.horigontalImage">
+			    			<a >
+			    				{{subCategory.subCategoryName}}
+			    				<span class="ulist-arrow"> <i class="fa fa-angle-right"></i> </span>
+			    	   		 </a> 
+			    		</div>
+			    		<div class="homepage-bg" style="background-image:url('./assets/img/noImage2.png')" (click)="onSubcategory(subCategory)" 
+			    		    *ngIf="!subCategory.horigontalImage">
+			    			<a >
+			    				{{subCategory.subCategoryName}}
+			    				<span class="ulist-arrow"> <i class="fa fa-angle-right"></i> </span>
+			    	   		 </a> 
+			    		</div>
+			    	</li>
+			    </ul>
+		    </div>
+		</section>
+		<app-footer></app-footer>
+	</div>
+</div>

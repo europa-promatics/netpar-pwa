@@ -1,0 +1,145 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+    <app-navbar></app-navbar>
+    <div class="cusmain-panel" (click)="navRemove()">
+        <div class="loader-box" *ngIf="loading">
+            <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+        </div>
+        <div class="tb-wrap">
+            <section class="add-contribute-sec">
+                <!-- Form for posting content -->
+                <div class="card cus-card">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="input-group">
+                            <mat-form-field>
+                                <input matInput placeholder="{{'LoginScreen_SignIn.MobileNumber' | translate}}" type="tel" maxlength="10" [(ngModel)]="mobileNumber" readonly>
+                            </mat-form-field>
+                            <span class="input-group-addon" id="basic-addon1"> <button class="btn-sm btn btn-primary" [disabled]="!postButton" (click)="onPost()"> {{"ContributionForm.post" | translate}} </button> </span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <mat-form-field>
+                            <input matInput placeholder="{{'LoginScreen_SignIn.FirstName' | translate}}" type="text" [(ngModel)]="firstName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <mat-form-field>
+                            <input matInput placeholder="{{'LoginScreen_SignIn.LastName' | translate}}" type="text" [(ngModel)]="lastName" readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'ContributionForm.SelectSection'|translate}}" [(ngModel)]="userContibutionModel.sectionName" [disabled]="sectionNameDisable">
+                                <mat-option [value]="section.sectionName" *ngFor="let section of sectionData" (click)="onSection(section)"> {{section.sectionName}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>    
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'ContributionForm.SelectCategory'|translate}}" [(ngModel)]="userContibutionModel.categoryName" [disabled]="categoryNameDisable">
+                                <mat-option [value]="category.categoryName" *ngFor="let category of categories" (click)="onCategory(category)"> {{category.categoryName}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>    
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'ContributionForm.SelectSubcategory'|translate}}" [(ngModel)]="userContibutionModel.subCategoryName" [disabled]="subCategoryNameDisable">
+                                <mat-option [value]="subCategory.subCategoryName" *ngFor="let subCategory of subCategories" (click)="onSubcategory(subCategory)"> {{subCategory.subCategoryName}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>    
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                           <mat-select placeholder="{{'ContributionForm.SelectLanguage' | translate}}"  [(ngModel)]="userContibutionModel.language" [disabled]="languageDisable">
+                                <mat-option value="मराठी">मराठी</mat-option>
+                            </mat-select>
+                        </mat-form-field>    
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                            <input matInput placeholder="{{'ContributionForm.Title' | translate}}" type="text" name="title" id="title" #titleInput [matAutocomplete]="title"  [(ngModel)]="userContibutionModel.title" (input)="onTransliteration(userContibutionModel.title,titleInput,'title')"  (keyup)="onKeyUp($event)" (click)="clearSuggstion()" [disabled]="TitleDisable">
+                            <mat-autocomplete #title="matAutocomplete">
+                                <mat-option *ngFor="let state of suggestedDataForTransliteration" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                <span>{{ state }}</span> 
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>    
+                    </div>
+
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                            <textarea placeholder="{{'ContributionForm.EnterYourDescriptionHere' | translate}}"  matInput matTextareaAutosize matAutosizeMinRows="3" matAutosizeMaxRows="20" name="description" id="description" #descriptionInput [matAutocomplete]="description"  [(ngModel)]="userContibutionModel.description" (input)="onTransliteration(userContibutionModel.description,descriptionInput,'description')"  (keyup)="onKeyUp($event)" (click)="clearSuggstion()" [disabled]="descriptionDisable"></textarea>
+                            <mat-autocomplete #description="matAutocomplete">
+                                <mat-option *ngFor="let state of suggestedDataForTransliteration" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                <span>{{ state }}</span> 
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Data will show from here that will be uploaded from div class name is 'contribute-footer'-->
+                    <div class="scroll-box" *ngIf="uploadedImage" >
+                        <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig">
+                            <div ngxSlickItem class="slide" *ngFor="let slide of slides;let i = index">
+                                <div *ngIf="slide.type=='image'">
+                                    <img [src]="slide.url"> 
+                                    <span class="delete" (click)="removeSlide(i)"> <i class="material-icons">delete</i></span> 
+                                </div>
+                                <div *ngIf="slide.type=='video'">
+                                   <video width="100%" height="100%" preload="metadata">
+                                     <source [src]="slide.url" type="video/mp4">
+                                     Your browser does not support the video tag.
+                                    </video>
+                                    <span class="delete" (click)="removeSlide(i)"> <i class="material-icons">delete</i></span> 
+                                </div>
+                                <div *ngIf="slide.type=='audio'">
+                                    <img src="./assets/img/volume.png">
+                                    <span class="delete" (click)="removeSlide(i)"> <i class="material-icons">delete</i></span>
+                                </div>
+                                <div *ngIf="slide.type=='doc'">
+                                    <img src="./assets/img/document.png">
+                                    <span class="delete" (click)="removeSlide(i)"> <i class="material-icons">delete</i></span>
+                                </div>
+                            </div>
+                        </ngx-slick>
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <button class="full-width btn btn-primary m-b-15" [disabled]="!postButton" (click)="onPost()"> {{"ContributionForm.post" | translate}} </button> 
+                    </div>
+                    <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                        <button class="full-width btn btn-primary m-b-15" (click)="onCloseButton()">{{"ContributionForm.close" | translate}} </button> 
+                    </div>
+
+                </div>
+            </section>
+            <div class="contribute-footer">
+                <ul class="ul_contribute">
+                    <li type="file">
+                        <img src="./assets/img/picture.png" class="img-responsive" (click)="fileImage.click()" />
+                         <div style="display: none;"><input type="file" accept="image/*" #fileImage id="uploadImage" (change)="onUploadImage($event,'image')"></div>
+                    </li>
+                    <li>
+                        <img src="./assets/img/sound.png" class="img-responsive" (click)="fileAudio.click()" />
+                         <div style="display: none;"><input type="file" accept="audio/*" #fileAudio id="uploadImage" (change)="onUploadImage($event,'audio')"></div>
+                    </li>
+                    <li>
+                        <img src="./assets/img/video.png" class="img-responsive" (click)="fileVideo.click()"/>
+                        <div style="display: none;"><input type="file" accept="video/*" #fileVideo id="uploadImage" (change)="onUploadImage($event,'video')"></div>
+                    </li>
+                    <li>
+                        <img src="./assets/img/file.png" class="img-responsive" (click)="fileDoc.click()"/>
+                        <div style="display: none;"><input type="file" accept="document/*" #fileDoc id="uploadImage" (change)="onUploadImage($event,'doc')"></div>
+                    </li>
+                </ul>
+            </div>
+
+            <app-footer></app-footer>
+        </div>
+    </div>
+</div>

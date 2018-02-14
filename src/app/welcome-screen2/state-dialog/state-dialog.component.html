@@ -1,0 +1,12 @@
+<div class="modal-content cus-modal">
+	<div class="row">
+		<div class="modal-header">
+			<h4 class="modal-title" > States <span class="pull-right"><a (click)="onClosed()"><i class="fa fa-times"></i></a></span>  </h4>
+		</div>
+		<div class="modal-body">
+		    <mat-list>
+				<mat-radio-button name="State" class="col-mat-12 col-sm-12 col-xs-12" *ngFor="let state of states"> {{state.stateName}}</mat-radio-button>
+			</mat-list>
+		</div>
+	</div>
+</div>

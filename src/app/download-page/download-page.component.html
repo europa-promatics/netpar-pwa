@@ -1,0 +1,27 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+	<app-back-button-navbar></app-back-button-navbar>
+    <div class="cusmain-panel">
+		<div class="tb-wrap">
+			<section class="article-sec">
+				<div class="card cus-card downloads" id="downloaded" *ngIf="downloadedMedia">
+					<div class="download-box">
+						<div class="dow-li mat-3" *ngFor="let media of downloadedMedia;let i = index" >
+							<img [src]="media.url.mediaUrl" class="img-effect img-responsive" (click)="onImage(media.url.mediaUrl)"/>
+							<span class="badge" (click)="onRemoveDownload(i)"> <i class="fa fa-trash"></i> </span>
+						</div>
+					</div>
+					
+				</div>
+
+				<div class="no-div"  *ngIf="!downloadedMedia">
+					<div> no media available</div>
+				</div>
+			</section>
+			<app-footer></app-footer>
+		</div>
+	</div>
+</div>

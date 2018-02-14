@@ -1,0 +1,425 @@
+tFalsyFlags(type) & 7392 /* DefinitelyFalsy */ ?
+                filterType(type, function (t) { return !(getFalsyFlags(t) & 7392 /* DefinitelyFalsy */); }) :
+                type;
+        }
+        function getNonNullableType(type) {
+            return strictNullChecks ? getTypeWithFacts(type, 524288 /* NEUndefinedOrNull */) : type;
+        }
+        /**
+         * Return true if type was inferred from an object literal or written as an object type literal
+         * with no call or construct signatures.
+         */
+        function isObjectLiteralType(type) {
+            return type.symbol && (type.symbol.flags & (4096 /* ObjectLiteral */ | 2048 /* TypeLiteral */)) !== 0 &&
+                getSignaturesOfType(type, 0 /* Call */).length === 0 &&
+                getSignaturesOfType(type, 1 /* Construct */).length === 0;
+        }
+        function createSymbolWithType(source, type) {
+            var symbol = createSymbol(source.flags, source.name);
+            symbol.declarations = source.declarations;
+            symbol.parent = source.parent;
+            symbol.type = type;
+            symbol.target = source;
+            if (source.valueDeclaration) {
+                symbol.valueDeclaration = source.valueDeclaration;
+            }
+            return symbol;
+        }
+        function transformTypeOfMembers(type, f) {
+            var members = ts.createMap();
+            for (var _i = 0, _a = getPropertiesOfObjectType(type); _i < _a.length; _i++) {
+                var property = _a[_i];
+                var original = getTypeOfSymbol(property);
+                var updated = f(original);
+                members.set(property.name, updated === original ? property : createSymbolWithType(property, updated));
+            }
+            return members;
+        }
+        /**
+         * If the the provided object literal is subject to the excess properties check,
+         * create a new that is exempt. Recursively mark object literal members as exempt.
+         * Leave signatures alone since they are not subject to the check.
+         */
+        function getRegularTypeOfObjectLiteral(type) {
+            if (!(getObjectFlags(type) & 128 /* ObjectLiteral */ && type.flags & 1048576 /* FreshLiteral */)) {
+                return type;
+            }
+            var regularType = type.regularType;
+            if (regularType) {
+                return regularType;
+            }
+            var resolved = type;
+            var members = transformTypeOfMembers(type, getRegularTypeOfObjectLiteral);
+            var regularNew = createAnonymousType(resolved.symbol, members, resolved.callSignatures, resolved.constructSignatures, resolved.stringIndexInfo, resolved.numberIndexInfo);
+            regularNew.flags = resolved.flags & ~1048576 /* FreshLiteral */;
+            regularNew.objectFlags |= 128 /* ObjectLiteral */;
+            type.regularType = regularNew;
+            return regularNew;
+        }
+        function getWidenedProperty(prop) {
+            var original = getTypeOfSymbol(prop);
+            var widened = getWidenedType(original);
+            return widened === original ? prop : createSymbolWithType(prop, widened);
+        }
+        function getWidenedTypeOfObjectLiteral(type) {
+            var members = ts.createMap();
+            for (var _i = 0, _a = getPropertiesOfObjectType(type); _i < _a.length; _i++) {
+                var prop = _a[_i];
+                // Since get accessors already widen their return value there is no need to
+                // widen accessor based properties here.
+                members.set(prop.name, prop.flags & 4 /* Property */ ? getWidenedProperty(prop) : prop);
+            }
+            var stringIndexInfo = getIndexInfoOfType(type, 0 /* String */);
+            var numberIndexInfo = getIndexInfoOfType(type, 1 /* Number */);
+            return createAnonymousType(type.symbol, members, emptyArray, emptyArray, stringIndexInfo && createIndexInfo(getWidenedType(stringIndexInfo.type), stringIndexInfo.isReadonly), numberIndexInfo && createIndexInfo(getWidenedType(numberIndexInfo.type), numberIndexInfo.isReadonly));
+        }
+        function getWidenedConstituentType(type) {
+            return type.flags & 6144 /* Nullable */ ? type : getWidenedType(type);
+        }
+        function getWidenedType(type) {
+            if (type.flags & 6291456 /* RequiresWidening */) {
+                if (type.flags & 6144 /* Nullable */) {
+                    return anyType;
+                }
+                if (getObjectFlags(type) & 128 /* ObjectLiteral */) {
+                    return getWidenedTypeOfObjectLiteral(type);
+                }
+                if (type.flags & 65536 /* Union */) {
+                    return getUnionType(ts.sameMap(type.types, getWidenedConstituentType));
+                }
+                if (isArrayType(type) || isTupleType(type)) {
+                    return createTypeReference(type.target, ts.sameMap(type.typeArguments, getWidenedType));
+                }
+            }
+            return type;
+        }
+        /**
+         * Reports implicit any errors that occur as a result of widening 'null' and 'undefined'
+         * to 'any'. A call to reportWideningErrorsInType is normally accompanied by a call to
+         * getWidenedType. But in some cases getWidenedType is called without reporting errors
+         * (type argument inference is an example).
+         *
+         * The return value indicates whether an error was in fact reported. The particular circumstances
+         * are on a best effort basis. Currently, if the null or undefined that causes widening is inside
+         * an object literal property (arbitrarily deeply), this function reports an error. If no error is
+         * reported, reportImplicitAnyError is a suitable fallback to report a general error.
+         */
+        function reportWideningErrorsInType(type) {
+            var errorReported = false;
+            if (type.flags & 65536 /* Union */) {
+                for (var _i = 0, _a = type.types; _i < _a.length; _i++) {
+                    var t = _a[_i];
+                    if (reportWideningErrorsInType(t)) {
+                        errorReported = true;
+                    }
+                }
+            }
+            if (isArrayType(type) || isTupleType(type)) {
+                for (var _b = 0, _c = type.typeArguments; _b < _c.length; _b++) {
+                    var t = _c[_b];
+                    if (reportWideningErrorsInType(t)) {
+                        errorReported = true;
+                    }
+                }
+            }
+            if (getObjectFlags(type) & 128 /* ObjectLiteral */) {
+                for (var _d = 0, _e = getPropertiesOfObjectType(type); _d < _e.length; _d++) {
+                    var p = _e[_d];
+                    var t = getTypeOfSymbol(p);
+                    if (t.flags & 2097152 /* ContainsWideningType */) {
+                        if (!reportWideningErrorsInType(t)) {
+                            error(p.valueDeclaration, ts.Diagnostics.Object_literal_s_property_0_implicitly_has_an_1_type, p.name, typeToString(getWidenedType(t)));
+                        }
+                        errorReported = true;
+                    }
+                }
+            }
+            return errorReported;
+        }
+        function reportImplicitAnyError(declaration, type) {
+            var typeAsString = typeToString(getWidenedType(type));
+            var diagnostic;
+            switch (declaration.kind) {
+                case 149 /* PropertyDeclaration */:
+                case 148 /* PropertySignature */:
+                    diagnostic = ts.Diagnostics.Member_0_implicitly_has_an_1_type;
+                    break;
+                case 146 /* Parameter */:
+                    diagnostic = declaration.dotDotDotToken ?
+                        ts.Diagnostics.Rest_parameter_0_implicitly_has_an_any_type :
+                        ts.Diagnostics.Parameter_0_implicitly_has_an_1_type;
+                    break;
+                case 176 /* BindingElement */:
+                    diagnostic = ts.Diagnostics.Binding_element_0_implicitly_has_an_1_type;
+                    break;
+                case 228 /* FunctionDeclaration */:
+                case 151 /* MethodDeclaration */:
+                case 150 /* MethodSignature */:
+                case 153 /* GetAccessor */:
+                case 154 /* SetAccessor */:
+                case 186 /* FunctionExpression */:
+                case 187 /* ArrowFunction */:
+                    if (!declaration.name) {
+                        error(declaration, ts.Diagnostics.Function_expression_which_lacks_return_type_annotation_implicitly_has_an_0_return_type, typeAsString);
+                        return;
+                    }
+                    diagnostic = ts.Diagnostics._0_which_lacks_return_type_annotation_implicitly_has_an_1_return_type;
+                    break;
+                default:
+                    diagnostic = ts.Diagnostics.Variable_0_implicitly_has_an_1_type;
+            }
+            error(declaration, diagnostic, ts.declarationNameToString(ts.getNameOfDeclaration(declaration)), typeAsString);
+        }
+        function reportErrorsFromWidening(declaration, type) {
+            if (produceDiagnostics && noImplicitAny && type.flags & 2097152 /* ContainsWideningType */) {
+                // Report implicit any error within type if possible, otherwise report error on declaration
+                if (!reportWideningErrorsInType(type)) {
+                    reportImplicitAnyError(declaration, type);
+                }
+            }
+        }
+        function forEachMatchingParameterType(source, target, callback) {
+            var sourceMax = source.parameters.length;
+            var targetMax = target.parameters.length;
+            var count;
+            if (source.hasRestParameter && target.hasRestParameter) {
+                count = Math.max(sourceMax, targetMax);
+            }
+            else if (source.hasRestParameter) {
+                count = targetMax;
+            }
+            else if (target.hasRestParameter) {
+                count = sourceMax;
+            }
+            else {
+                count = Math.min(sourceMax, targetMax);
+            }
+            for (var i = 0; i < count; i++) {
+                callback(getTypeAtPosition(source, i), getTypeAtPosition(target, i));
+            }
+        }
+        function createInferenceContext(signature, inferUnionTypes, useAnyForNoInferences) {
+            var inferences = ts.map(signature.typeParameters, createTypeInferencesObject);
+            return {
+                signature: signature,
+                inferUnionTypes: inferUnionTypes,
+                inferences: inferences,
+                inferredTypes: new Array(signature.typeParameters.length),
+                useAnyForNoInferences: useAnyForNoInferences
+            };
+        }
+        function createTypeInferencesObject() {
+            return {
+                primary: undefined,
+                secondary: undefined,
+                topLevel: true,
+                isFixed: false,
+            };
+        }
+        // Return true if the given type could possibly reference a type parameter for which
+        // we perform type inference (i.e. a type parameter of a generic function). We cache
+        // results for union and intersection types for performance reasons.
+        function couldContainTypeVariables(type) {
+            var objectFlags = getObjectFlags(type);
+            return !!(type.flags & 540672 /* TypeVariable */ ||
+                objectFlags & 4 /* Reference */ && ts.forEach(type.typeArguments, couldContainTypeVariables) ||
+                objectFlags & 16 /* Anonymous */ && type.symbol && type.symbol.flags & (8192 /* Method */ | 2048 /* TypeLiteral */ | 32 /* Class */) ||
+                objectFlags & 32 /* Mapped */ ||
+                type.flags & 196608 /* UnionOrIntersection */ && couldUnionOrIntersectionContainTypeVariables(type));
+        }
+        function couldUnionOrIntersectionContainTypeVariables(type) {
+            if (type.couldContainTypeVariables === undefined) {
+                type.couldContainTypeVariables = ts.forEach(type.types, couldContainTypeVariables);
+            }
+            return type.couldContainTypeVariables;
+        }
+        function isTypeParameterAtTopLevel(type, typeParameter) {
+            return type === typeParameter || type.flags & 196608 /* UnionOrIntersection */ && ts.forEach(type.types, function (t) { return isTypeParameterAtTopLevel(t, typeParameter); });
+        }
+        // Infer a suitable input type for a homomorphic mapped type { [P in keyof T]: X }. We construct
+        // an object type with the same set of properties as the source type, where the type of each
+        // property is computed by inferring from the source property type to X for the type
+        // variable T[P] (i.e. we treat the type T[P] as the type variable we're inferring for).
+        function inferTypeForHomomorphicMappedType(source, target) {
+            var properties = getPropertiesOfType(source);
+            var indexInfo = getIndexInfoOfType(source, 0 /* String */);
+            if (properties.length === 0 && !indexInfo) {
+                return undefined;
+            }
+            var typeVariable = getIndexedAccessType(getConstraintTypeFromMappedType(target).type, getTypeParameterFromMappedType(target));
+            var typeVariableArray = [typeVariable];
+            var typeInferences = createTypeInferencesObject();
+            var typeInferencesArray = [typeInferences];
+            var templateType = getTemplateTypeFromMappedType(target);
+            var readonlyMask = target.declaration.readonlyToken ? false : true;
+            var optionalMask = target.declaration.questionToken ? 0 : 67108864 /* Optional */;
+            var members = createSymbolTable(properties);
+            for (var _i = 0, properties_5 = properties; _i < properties_5.length; _i++) {
+                var prop = properties_5[_i];
+                var inferredPropType = inferTargetType(getTypeOfSymbol(prop));
+                if (!inferredPropType) {
+                    return undefined;
+                }
+                var inferredProp = createSymbol(4 /* Property */ | prop.flags & optionalMask, prop.name);
+                inferredProp.checkFlags = readonlyMask && isReadonlySymbol(prop) ? 8 /* Readonly */ : 0;
+                inferredProp.declarations = prop.declarations;
+                inferredProp.type = inferredPropType;
+                members.set(prop.name, inferredProp);
+            }
+            if (indexInfo) {
+                var inferredIndexType = inferTargetType(indexInfo.type);
+                if (!inferredIndexType) {
+                    return undefined;
+                }
+                indexInfo = createIndexInfo(inferredIndexType, readonlyMask && indexInfo.isReadonly);
+            }
+            return createAnonymousType(undefined, members, emptyArray, emptyArray, indexInfo, undefined);
+            function inferTargetType(sourceType) {
+                typeInferences.primary = undefined;
+                typeInferences.secondary = undefined;
+                inferTypes(typeVariableArray, typeInferencesArray, sourceType, templateType);
+                var inferences = typeInferences.primary || typeInferences.secondary;
+                return inferences && getUnionType(inferences, /*subtypeReduction*/ true);
+            }
+        }
+        function inferTypesWithContext(context, originalSource, originalTarget) {
+            inferTypes(context.signature.typeParameters, context.inferences, originalSource, originalTarget);
+        }
+        function inferTypes(typeVariables, typeInferences, originalSource, originalTarget) {
+            var sourceStack;
+            var targetStack;
+            var depth = 0;
+            var inferiority = 0;
+            var visited = ts.createMap();
+            inferFromTypes(originalSource, originalTarget);
+            function isInProcess(source, target) {
+                for (var i = 0; i < depth; i++) {
+                    if (source === sourceStack[i] && target === targetStack[i]) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            function inferFromTypes(source, target) {
+                if (!couldContainTypeVariables(target)) {
+                    return;
+                }
+                if (source.aliasSymbol && source.aliasTypeArguments && source.aliasSymbol === target.aliasSymbol) {
+                    // Source and target are types originating in the same generic type alias declaration.
+                    // Simply infer from source type arguments to target type arguments.
+                    var sourceTypes = source.aliasTypeArguments;
+                    var targetTypes = target.aliasTypeArguments;
+                    for (var i = 0; i < sourceTypes.length; i++) {
+                        inferFromTypes(sourceTypes[i], targetTypes[i]);
+                    }
+                    return;
+                }
+                if (source.flags & 65536 /* Union */ && target.flags & 65536 /* Union */ && !(source.flags & 16 /* Enum */ && target.flags & 16 /* Enum */) ||
+                    source.flags & 131072 /* Intersection */ && target.flags & 131072 /* Intersection */) {
+                    // Source and target are both unions or both intersections. If source and target
+                    // are the same type, just relate each constituent type to itself.
+                    if (source === target) {
+                        for (var _i = 0, _a = source.types; _i < _a.length; _i++) {
+                            var t = _a[_i];
+                            inferFromTypes(t, t);
+                        }
+                        return;
+                    }
+                    // Find each source constituent type that has an identically matching target constituent
+                    // type, and for each such type infer from the type to itself. When inferring from a
+                    // type to itself we effectively find all type parameter occurrences within that type
+                    // and infer themselves as their type arguments. We have special handling for numeric
+                    // and string literals because the number and string types are not represented as unions
+                    // of all their possible values.
+                    var matchingTypes = void 0;
+                    for (var _b = 0, _c = source.types; _b < _c.length; _b++) {
+                        var t = _c[_b];
+                        if (typeIdenticalToSomeType(t, target.types)) {
+                            (matchingTypes || (matchingTypes = [])).push(t);
+                            inferFromTypes(t, t);
+                        }
+                        else if (t.flags & (64 /* NumberLiteral */ | 32 /* StringLiteral */)) {
+                            var b = getBaseTypeOfLiteralType(t);
+                            if (typeIdenticalToSomeType(b, target.types)) {
+                                (matchingTypes || (matchingTypes = [])).push(t, b);
+                            }
+                        }
+                    }
+                    // Next, to improve the quality of inferences, reduce the source and target types by
+                    // removing the identically matched constituents. For example, when inferring from
+                    // 'string | string[]' to 'string | T' we reduce the types to 'string[]' and 'T'.
+                    if (matchingTypes) {
+                        source = removeTypesFromUnionOrIntersection(source, matchingTypes);
+                        target = removeTypesFromUnionOrIntersection(target, matchingTypes);
+                    }
+                }
+                if (target.flags & 540672 /* TypeVariable */) {
+                    // If target is a type parameter, make an inference, unless the source type contains
+                    // the anyFunctionType (the wildcard type that's used to avoid contextually typing functions).
+                    // Because the anyFunctionType is internal, it should not be exposed to the user by adding
+                    // it as an inference candidate. Hopefully, a better candidate will come along that does
+                    // not contain anyFunctionType when we come back to this argument for its second round
+                    // of inference.
+                    if (source.flags & 8388608 /* ContainsAnyFunctionType */) {
+                        return;
+                    }
+                    for (var i = 0; i < typeVariables.length; i++) {
+                        if (target === typeVariables[i]) {
+                            var inferences = typeInferences[i];
+                            if (!inferences.isFixed) {
+                                // Any inferences that are made to a type parameter in a union type are inferior
+                                // to inferences made to a flat (non-union) type. This is because if we infer to
+                                // T | string[], we really don't know if we should be inferring to T or not (because
+                                // the correct constituent on the target side could be string[]). Therefore, we put
+                                // such inferior inferences into a secondary bucket, and only use them if the primary
+                                // bucket is empty.
+                                var candidates = inferiority ?
+                                    inferences.secondary || (inferences.secondary = []) :
+                                    inferences.primary || (inferences.primary = []);
+                                if (!ts.contains(candidates, source)) {
+                                    candidates.push(source);
+                                }
+                                if (target.flags & 16384 /* TypeParameter */ && !isTypeParameterAtTopLevel(originalTarget, target)) {
+                                    inferences.topLevel = false;
+                                }
+                            }
+                            return;
+                        }
+                    }
+                }
+                else if (getObjectFlags(source) & 4 /* Reference */ && getObjectFlags(target) & 4 /* Reference */ && source.target === target.target) {
+                    // If source and target are references to the same generic type, infer from type arguments
+                    var sourceTypes = source.typeArguments || emptyArray;
+                    var targetTypes = target.typeArguments || emptyArray;
+                    var count = sourceTypes.length < targetTypes.length ? sourceTypes.length : targetTypes.length;
+                    for (var i = 0; i < count; i++) {
+                        inferFromTypes(sourceTypes[i], targetTypes[i]);
+                    }
+                }
+                else if (target.flags & 196608 /* UnionOrIntersection */) {
+                    var targetTypes = target.types;
+                    var typeVariableCount = 0;
+                    var typeVariable = void 0;
+                    // First infer to each type in union or intersection that isn't a type variable
+                    for (var _d = 0, targetTypes_3 = targetTypes; _d < targetTypes_3.length; _d++) {
+                        var t = targetTypes_3[_d];
+                        if (t.flags & 540672 /* TypeVariable */ && ts.contains(typeVariables, t)) {
+                            typeVariable = t;
+                            typeVariableCount++;
+                        }
+                        else {
+                            inferFromTypes(source, t);
+                        }
+                    }
+                    // Next, if target containings a single naked type variable, make a secondary inference to that type
+                    // variable. This gives meaningful results for union types in co-variant positions and intersection
+                    // types in contra-variant positions (such as callback parameters).
+                    if (typeVariableCount === 1) {
+                        inferiority++;
+                        inferFromTypes(source, typeVariable);
+                        inferiority--;
+                    }
+                }
+                else if (source.flags & 196608 /* UnionOrIntersection */) {
+                    // Source is a union or intersection type, infer from each constituent type
+                    var sourceT

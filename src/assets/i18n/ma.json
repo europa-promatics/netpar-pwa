@@ -1,0 +1,343 @@
+{
+	"translation": {
+        "ma": "Marathi"
+    },
+
+    "LaunchScreen2":{
+        "WelcometoNetpar":"नेटपरमध्ये तुमचे स्वागत",
+        "Tagline":"भारताचा डिजिटल मित्र ",
+        "Comejoinus":"या, नेटपरवर सहभागी व्हा ",
+        "Start":"प्रारंभ"
+    },
+
+     "validationPopups":{
+        "sorry":"माफ करा",
+        "enterFirstName":"नाव प्रविष्ट करा",
+        "enterLastName":"आडनाव प्रविष्ट करा",
+        "enterMobileNumber":"मोबाईल नंबर प्रविष्ट करा",
+        "incorrectMobileNumber":"आपला मोबाईल नंबर चुकीचा  पुन्हा टाईप करा !",
+        "enterComment":"प्रतिक्रिया प्रविष्ट करा",
+        "sectionMissing":"विभाग प्रविष्ट करा",
+        "categoryMissing":"प्रकार प्रविष्ट करा",
+        "subcategoryMissing":"उप-प्रकार प्रविष्ट करा",
+        "languageMissing":"भाषा प्रविष्ट करा",
+        "titleMissing":"शीर्षक प्रविष्ट करा",
+        "descriptionMissing":"वर्णन प्रविष्ट करा",
+        "mediaMissing":"मिडिया फाइल जोडा"
+    },
+
+    "WelcomeScreen":{
+        "WelcometoNetpar":"नेटपरमध्ये तुमचे स्वागत",
+        "SignIn":"साईन इन ",
+        "SignUp":"साईन अप",
+        "takeTour":"Take a Tour"
+    },
+
+    "LoginScreen_SignIn":{
+        "previous":"परत",
+        "FirstName":"नाव",
+        "LastName":"आडनाव ",
+        "MobileNumber":"मोबाईल नंबर",
+        "SignIn":"साईन इन ",
+        "NewUser":"नवीन अकाऊंट बनवण्यासाठी साईन अप करा",
+        "continueToSignIn":"साइन इन करणे सुरू ठेवा",
+        "haveANewNumber":"आपल्याकडे नवीन नंबर आहे? अपडेट करा",
+        "Next":"Next",
+        "firstNameRequired":"first name  is required",
+        "lastNameRequired":"last name  is required",
+        "onlyAlphabets":"only alphabets are acceptable",
+        "mobileRequired":"Mobile number is required",
+        "onlyDigits":"only digits are acceptable",
+        "lessThanTen":"contact number can not be less than 10 digits",
+        "moreThanTen":"contact number can not be more than 10 digits",
+        "youAreNotRegistered":"You are not registered,please signup ",
+        "enterReferralCode":"रेफरल कोड प्रविष्ट करा"
+    },
+
+    "errorMessage":{
+        "sorry":"माफ करा",
+        "somethingWentWrong":"काहीतरी चुकले असले",
+        "tryLater":"कृपया थोड्यावेळाने प्रयत्न करा",
+        "invalidOtp":"अवैध ओटीपी"
+    },
+
+    "LoginScreen_SignUp":{
+        "FirstName":"नाव",
+        "LastName":"आडनाव ",
+        "MobileNumber":"मोबाईल नंबर ",
+        "SignUp":"साईन अप ",
+        "ExistingUser":"विद्यमान वापरकर्ता ? साईन इन ",
+        "sorry":"माफ करा",
+        "alreadyRegistered":"प्रवेश केला मोबाइल नंबर आधीपासूनच नोंदणीकृत आहे",
+        "Existing":"विद्यमान वापरकर्ता ?"
+    },
+
+    "Login_SecurityQuestions":{
+        "State":"राज्य",
+        "District":"जिल्हा",
+        "Block":"तालुका",
+        "Date":"तारीख",
+        "Month":"महिना",
+        "Year":"वर्ष",
+        "DateofBirth":"जन्म",
+        "Gender":"तुम्ही कोण आहात?",
+        "Male":"पुरूष",
+        "Female":"स्त्री",
+        "stateRequired":"राज्य प्रविष्ट करा",
+        "districtRequired":"जिल्हा प्रविष्ट करा",
+        "blockRequired":"तालुका प्रविष्ट करा",
+        "dobRequired":"जन्म प्रविष्ट करा",
+        "genderRequired":"लिंग प्रविष्ट करा",
+        "anserSecurityQuestions":"कृपया सुरक्षा प्रश्नाचे उत्तर द्या",
+        "Ques":"प्रश्न",
+        "stateQues":"तुमचे राज्य काय आहे?",
+        "districtQues":"तुमचे जिल्हा काय आहे?",
+        "blockQues":"तुमचे तालुका  काय आहे?",
+        "dobQues":"तुमची जन्मतारीख काय आहे?",
+        "genderQues":"आपल्या लिंग काय आहे?",
+        "mobileNumberQues":"What is your Last Mobile Number?",
+        "previousMobileNumber":"आपला आधीचा संपर्क क्रमांक",
+        "update":"अपडेट",
+        "mobileNumber":"मोबाईल नंबर",
+        "newMobileNumber":"नवीन मोबाईल नंबर",
+        "stateIncorrect":"राज्य अयोग्य आहे",
+        "districtIncorrect":"जिल्हा अयोग्य आहे",
+        "blockIncorrect":"तालुका अयोग्य आहे",
+        "dobIncorrect":"जन्मतारीख अयोग्य आहे",
+        "genderIncorrect":"लिंग अयोग्य आहे"
+    },
+
+    "Login_ErrorMessage_IncorrectMobileNumber":{
+    	"sorry":"माफ करा",
+        "incorrectMobileNumber":"तुम्ही दिलेला मोबाईल नंबर चुकीचा आहे कृपया पुन्हा प्रयत्न करा ",
+        "ok":"धन्यवाद"
+    },
+
+
+    "Login_ErrorMessage_MobileNumbernotenteredcorrectly":{
+    	"sorry":"माफ करा",
+        "notRegistered":"तुम्ही दिलेला मोबाईल नंबर आमच्याकडे नोंदविण्यात आलेला नाही कृपया नव्याने साईन अप करा ",
+        "SignUp":"नवीन अकाऊंट बनवण्यासाठी साईन अप करा"
+    },
+
+
+    "Login_SuccessfulSignIn":{
+        "Welcomeback":"आपले पुन्हा स्वागत आहे",
+        "signInSuccessfull":"आपली नोंदणी आता पूर्ण झाली आहे"
+    },
+
+    "Login_ErrorMessage_RecheckYourDetails":{
+    	"sorry":"माफ करा",
+        "recheckDetails":"तुम्ही दिलेली माहिती तपासून पाहा",
+        "Help":"मदत",
+        "SignUp":"नवीन अकाऊंट बनवण्यासाठी साईन अप कराp"
+    },
+
+
+    "Login_ErrorMesage_UpdateYourMobileNumber":{
+        "sorry":"माफ करा",
+        "updateMobile":"तुम्हाला तुमचा मोबाईल नंबर अपडेट करायचा आहे का?",
+        "yes":"हो नक्की",
+        "no":"नाही सध्या गरज नाही"
+    },
+
+    "Login_ErrorMesage_IsThisYou":{
+        "Hi":"हा",
+        "isThisYou":"तुमचे प्रोफाइल आहे",
+        "yes":"अर्थात, माझाच आहे",
+        "no":"नाही, अजिबात नाही"
+    },
+
+    "Login_ErrorMesage_SecurityQuestionAnswerisincorrect":{
+    	"sorry":"माफ करा",
+        "incorrectAnswer":" तुम्ही दिलेली माहिती चुकीची आहे",
+        "Help":"मदत",
+        "SignUp":"नवीन अकाऊंट बनवण्यासाठी साईन अप करा"
+    },
+
+    "OTPScreen":{
+        "great":"महान!",
+        "Otp":"ओटीपी",
+        "OtpSent":"आम्ही तुम्हाला ओटीपी पाठवला आहे,",
+        "wait": "तो आम्ही तपासेपर्यंत वाट पाहा",
+        "orYouCanEnter":"किंवा आपला ओटीपी टाइप करा",
+        "enterOTp":"येथे ओटीपी लिहा",
+        "ResendOTP":"पुन्हा ओटीपी पाठवा",
+        "Go":"पुढे जा"
+    },
+
+    "OTPScreen_ErrorMessage1":{
+    	"sorry":"माफ करा",
+        "unableToDetect":"आम्ही तुमचा ओटीपी मिळवू शकलो नाही",
+        "ResendOTP":"पुन्हा ओटीपी पाठवा",
+        "Help":"मदत "
+    },
+
+    "BottomBarandTopBar":{
+        "welcomeForMale":"नमस्कार, ",
+        "welcomeForFemale":"नमस्कार, ",
+        "home":"होम",
+        "myAccount":"माझं अकाऊंट "
+    },
+
+    "ContentItemView_Scroll1":{
+        "By":"लेखक/ लेखिका ",
+        "Like":"कडक",
+        "Comment":"कमेंट ",
+        "Save":"साठवा", 
+        "Download":"डाऊनलोड ",
+        "DownloadApp":"डाउनलोड अॅप",
+        "ContinueReading":"पुढे वाचत राहा",
+        "ViewMore":"पुढे पाहा"
+    },  
+
+    "ContentItemView_Scroll2":{
+        "Views":"पाहिले",
+        "Likes":"कडक",
+        "Comments":"टिपण्या लिहिल्या",
+        "Saves":"साठवले आहे ",
+        "Donwload":"डाऊनलोड",
+        "SuggestedArticles":"संबंधित लेख",
+        "send":"पाठवा"
+    },
+
+    "CommentBox":{
+        "Typeyourcomment":"तुमची प्रतिक्रिया लिहा",
+        "EnteryouComment":"तुमची प्रतिक्रिया नोंदवा"
+    },
+
+    "FloatingButtonScreen_Help":{
+        "Help":"मदत",
+        "CallforHelp":"मदतीसाठी फोन करा",
+        "WhatsappforHelp":"मदतीसाठी व्हाट्सएप करा",
+        "GotoourHelpSection":"आमच्या हेल्प सेक्शनला जा"
+    },
+
+    "FloatingButtonScreen_Share":{
+        "Share":"इतरांना पाठवा",
+        "Shareviatextmessage":"मेसेजवर इतरांना पाठवा",
+        "Shareonwhatsapp":"व्हाट्सएपवर इतरांना पाठवा",
+        "ShareonFacebook":"फेसबुकवर इतरांना पाठवा"
+    },
+
+    "ContentItemSaved":{
+        "saved":"साठवले आहे",
+        "viewSavedItems":"तुम्ही नोंदवलेली प्रतिक्रिया पाहण्यासाठी येथे क्लिक करा"
+    },
+
+    "ContentItemDownloaded":{
+        "downloaded":"डाऊनलोड झालं आहे",
+        "viewdownloadedItems":"तुम्ही डाऊनलोड केलेल्या गोष्टी पाहण्यासाठी येथे क्लिक करा"
+    },
+ 
+    "MenuScreen":{
+        "Home":"होम",
+        "Profile":"माझे प्रोफाइल",
+        "MyAccount":"माझं अकाऊंट",
+        "ViewMySavedItems":"मी साठवलेले लेख दाखवा",
+        "ViewMyDownloadedItems":"मी डाऊनलोड केलेल्या गोष्टी दाखवा",
+        "ViewMyContributions":"माझे स्वीकृत योगदान दाखवा",
+        "FriendsOnTheNetwork":"नेटपर वरील माझे मित्र",
+        "Contribute":"योगदान द्या",
+        "InviteFriends":"मित्रांना आमंत्रित करा",
+        "Aboutus":"नेटपर बद्दल",
+        "Rateus":"तुम्हाला आवडलं का?",
+        "section":"विभाग",
+        "privacyPolicy":"गोपनीयता धोरण",
+        "FAQ":"वारंवार प्रश्न विचारले"
+    },
+ 
+    "ProfilePage":{
+        "Edit":"संपादित करा", 
+        "Logout":"लॉग आऊट",
+        "ViewProfile":"प्रोफाईल दाखवा",
+        "ViewSavedItems":"साठवलेले लेख दाखवा",
+        "ViewDownloadeditems":"डाऊनलोड केलेल्या गोष्टी दाखवा",
+        "MyContributions":"माझे योगदान",
+        "FriendsOnMyNetwork":"नेटपर  वरील माझे मित्र"
+    },
+
+    "ProfilePage_Scroll1":{
+        "Downloaded":"डाऊनलोडेड",
+        "SeeMore":"आणखी दाखवा",
+        "FriendsOnMynetwork":"नेटपर वरील माझे मित्र",
+        "SeeMore":"आणखी दाखवा",
+        "SavedPosts":"साठवलेले लेख",
+        "Contributions":"योगदान",
+        "Friends":"मित्र",
+        "article":"लेख"
+    },     
+
+    "DeletedPopupScreen":{
+        "deletedFromPhone":"हे तुमच्या फोन मधूनही काढून टाकण्यात येईल",
+        "yes":"हो", 
+        "no":"नाही "
+    },
+
+    "Friendsonthenetwork":{
+        "FriendsOnNetpar":"नेटपर वरील माझे मित्र",
+        "InviteMoreFriends":"आणखी मित्रांना आमंत्रित करा",
+        "Invite":"आमंत्रित करा",
+        "inviteFriends":"मित्रांना आमंत्रित करा"
+    }, 
+
+    "ContributionForm":{
+        "SelectState":"राज्य निवडा",
+        "SelectLanguage":"भाषा निवडा",
+        "SelectSection":"विभाग निवडा",
+        "SelectCategory":"प्रकार निवडा",
+        "SelectSubcategory":"उप-प्रकार निवडा",
+        "Title":"शीर्षक",
+        "EnterYourDescriptionHere":"तुमचे वर्णन येथे नमूद करा",
+        "AttachMedia":"मीडिया फाईल जोडा",
+        "yourContributionHasbeenSubmitted":"तुमचे योगदान समाविष्ट केले आहे",
+        "doYouWantRemoveAddedMedia":"आपण जोडलेल्या मीडिया काढू इच्छिता?",
+        "doYouWantRemoveDownloadedMedia":"आपण डाऊनलोड केलेल्या मीडिया काढू इच्छिता?",
+        "doYouWantRemoveProfileImage":"आपण प्रोफाइल प्रतिमा काढू इच्छिता?",
+        "success":"यशस्वीपणे योगदान दिले",
+        "post":"पोस्ट",
+        "close":"बंद"
+    }, 
+
+    "FiltersScreen":{
+        "ApplyFilter":"फिल्टर लावा",
+        "ClearAllFilters":"सर्व फिल्टर काढा"
+    },
+
+    "Notifications":{
+        "Userhascommentedon":"यावर वापरकर्त्याने टिप्पण्या दिल्या आहेत",
+        "Userlikesyour" :"वापरकर्त्याला हे आवडले आहे",
+        "Yourcontributionhasbeenaccepted":"तुमचे योगदान मान्य करण्यात आले आहे",
+        "Yourcontributionislive":"तुमचे योगदान प्रकाशित करण्यात आले आहे"
+    },
+
+    "download":{
+        "continueToArticle":"लेख पृष्ठावर सुरू ठेवा",
+        "downloadApp":"अॅप डाउनलोड करा ",
+        "downloadAppFromPlaystore":"प्लेस्टोरवरून अनुप्रयोग डाउनलोड करा",
+        "toUseTheseFunctions":"या फंक्शन्सचा वापर करण्यासाठी, आपण अनुप्रयोग डाउनलोड करणे आवश्यक आहे, प्ले स्टोअरमध्ये आपल्याला पुनर्निर्देशित करणे"
+    },
+
+    "toasterMsgs":{
+        "noCategory":"या विभागातील प्रकार नाही",
+        "noSubCategory":"या प्रकारमध्ये उपप्रकार नाही",
+        "call":"कॉल",
+        "callMeBack":"मला संपर्क कॉल करा",
+        "apply":"अर्ज",
+        "intersted":"मला त्यात रुची आहे"
+    },
+
+    "logout":{
+        "wantToLogout":"आपण लॉगआउट करू इच्छिता",
+        "yes":"हो", 
+        "no":"नाही "
+    },
+
+    "GuideScreen":{
+        "toViewDownloaded":"डाऊनलोड केलेल्या माध्यमाच्या डाउनलोड पूर्ण झाल्यावर येथे क्लिक करा",
+        "toViewSaved":"हा लेख जतन केल्यानंतर आपण जतन आयटम येथे पाहू शकता येथे क्लिक करा"
+    }
+
+
+
+}

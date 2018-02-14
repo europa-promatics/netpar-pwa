@@ -1,0 +1,81 @@
+<nav class="header white navbar navbar-transparent navbar-fixed">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <!-- <button (click)="goBack()" class="navbar-toggle" type="button" *ngIf="backButton">
+                <i class="material-icons">keyboard_backspace</i>
+            </button> -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" (click)="sidebarToggle()" >
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- <a class="navbar-brand" href="javascript:void(0);">{{getTitle()}}</a> -->
+            <a class="navbar-brand {{logoutClass}}" (click)="onWhatsappLogo()">
+                <img src="./assets/img/Netpar-logo.png" class="img-responsive " alt="{{getTitle()}}" />
+            </a>
+            <ul class="nav navbar-nav navbar-right cus-navbar">
+                <a class="btn custom-btn btn-round btn-sm" href="javascript:void(0);" (click)="onWhatsappLogo()">
+                    {{"ContentItemView_Scroll1.DownloadApp" | translate}}
+                </a>
+                <!-- <li *ngIf="!logoutButtonVisible">
+                    <a class="" href="javascript:void(0);">
+                        <i class="material-icons">search</i>
+                    </a>
+                </li> -->
+                <!-- <li class="dropdown">
+                    <a class=""  routerLink="/notification"  class="dropdown-toggle" skipLocationChange="false">
+                        <i class="material-icons">notifications</i>
+                        <span class="badge"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="pull-left">Edit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="pull-left">Edit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);">
+                                <span class="pull-left">Edit</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li> -->
+                <li *ngIf="logoutButtonVisible">
+                    <!-- <a href="#" class="text-red" title="Log Out" (click)="onLogOut()"> <i class="material-icons">power_settings_new</i> </a> -->
+                    <a  title="Log Out" (click)="onLogOut()"><img src="./assets/img/logout.png" class="img-responsive"></a>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- <div class="collapse navbar-collapse header-sec">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a routerLink="/home" class="btn btn-white">
+                        <i class="material-icons">account_box</i>
+                        <span class="">Hi Tania</span>
+                        <div class="ripple-container"></div>
+                    </a>
+                </li>
+                <li class="cus-list">
+                    <a routerLink="/home" class="btn btn-yellow">
+                        <i class="material-icons">email</i>
+                        <span class="">abcd@email.com</span>
+                        <div class="ripple-container"></div>
+                    </a>
+                     <a routerLink="/login" class="btn btn-black">
+                        <i class="material-icons">power_settings_new</i>
+                        <span class="">Sign Out</span>
+                        <div class="ripple-container"></div>
+                    </a>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+</nav>

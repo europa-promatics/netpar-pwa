@@ -1,0 +1,114 @@
+<!-- <button (click)="getDays()"> days</button> -->
+<app-navbar2></app-navbar2>
+<section class="home-sec wrap">
+     <div class="loader-box" *ngIf="loading">
+        <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
+    <div class="home-form">
+        <div class="login home-panel">
+            <img src="./assets/img/logo-5.png" />
+            <div class="homeas-sec">
+                <form class="example-form">
+                    <!-- Firstname form field -->
+                    <div class="white-line form-group col-mat-6 col-sm-6 col-xs-6">
+                        <mat-form-field>
+                            <span matPrefix><i class="cusIco-firstname"></i>&nbsp;</span>
+                            <input matInput placeholder="{{'LoginScreen_SignIn.FirstName' | translate}}" type="text" name="firstName" id="firstName" #firstNameInput [matAutocomplete]="firstName"  [(ngModel)]="registerModel.firstName" (input)="onTransliteration(registerModel.firstName,firstNameInput,'firstName')"  (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
+                            <mat-autocomplete #firstName="matAutocomplete">
+                                <mat-option *ngFor="let state of suggestedDataForTransliteration" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                <span>{{ state }}</span> 
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                      
+                    </div>
+                    <!-- Lastname form field -->
+                    <div class="white-line form-group col-mat-6 col-sm-6 col-xs-6">
+                        <mat-form-field>
+                            <span matPrefix> <i class="cusIco-lastname"></i>&nbsp; </span>
+                            <input matInput placeholder="{{'LoginScreen_SignIn.LastName' | translate}}" type="text" name="lastName" id="lastName" #lastNameInput [matAutocomplete]="lastName"  [(ngModel)]="registerModel.lastName" (input)="onTransliteration(registerModel.lastName,lastNameInput,'lastName')"  (keyup)="onKeyUp($event)" (click)="clearSuggstion()">
+                            <mat-autocomplete #lastName="matAutocomplete">
+                                <mat-option *ngFor="let state of suggestedDataForTransliteration" [value]="state" (click)="selectString(state)" (onSelectionChange)="onSuugestionkeyup(state)">
+                                <span>{{ state }}</span> 
+                                </mat-option>
+                            </mat-autocomplete>
+                           
+                        </mat-form-field>
+                      
+                    </div>
+                    <!-- State form field -->
+                    <div class="white-line form-group col-mat-12 col-sm-12 col-xs-12" *ngIf="stateData">
+                        <mat-form-field>   
+                            <mat-select placeholder="{{'Login_SecurityQuestions.State' | translate}}" name="state"  [(ngModel)]="registerModel.stateRegional">
+                                <mat-option  [value]="stateData.hindiName" (click)="onState(stateData)"> {{stateData.hindiName}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- District form field -->
+                    <div class="white-line form-group col-mat-6 col-sm-6 col-xs-6">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'Login_SecurityQuestions.District' | translate}}"  name="District" [(ngModel)]="registerModel.districtRegional">
+                                <mat-option [value]="district.hindiName" *ngFor="let district of districtData" (click)="onDistrict(district)"> {{district.hindiName}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Block form field -->
+                    <div class="white-line form-group col-mat-6 col-sm-6 col-xs-6">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'Login_SecurityQuestions.Block' | translate}}" name="Block"  [(ngModel)]="registerModel.blockRegional"  >
+                                <mat-option [value]="block.hindiName" *ngFor="let block of blockData" (click)="onBlock(block)"> {{block.hindiName}} </mat-option >
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Date of birth form field -->
+                    <div class="col-mat-12 col-sm-12 col-xs-12 p-b-0">
+                        <label class="color-white"> {{'Login_SecurityQuestions.DateofBirth' | translate}} </label>
+                    </div>
+                    <div class="white-line form-group col-mat-4 col-sm-4 col-xs-4">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'Login_SecurityQuestions.Date' | translate}}"  name="Date" [(ngModel)]="dd">
+                                <mat-option  [value]="d.value" *ngFor="let d of days"> {{d.value}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Month form field -->
+                    <div class="white-line form-group col-mat-4 col-sm-4 col-xs-4">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'Login_SecurityQuestions.Month' | translate}}"  name="month" [(ngModel)]="mm">
+                                <mat-option  [value]="m.name" *ngFor="let m of months">{{m.name}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Year form field -->
+                    <div class="white-line form-group col-mat-4 col-sm-4 col-xs-4">
+                        <mat-form-field>
+                            <mat-select placeholder="{{'Login_SecurityQuestions.Year' | translate}}"  name="year" [(ngModel)]="yy">
+                                <mat-option  [value]="y.year" *ngFor="let y of years"> {{y.year}} </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <!-- Gender form field -->
+                    <div class="white-line form-group col-mat-12 col-sm-12 col-xs-12 p-0">
+                        <mat-radio-group name="{{'Login_SecurityQuestions.Gender' | translate}}"  [(ngModel)]="registerModel.gender">
+                            <mat-radio-button value="male" class="col-mat-6 col-sm-6 col-xs-6">{{'Login_SecurityQuestions.Male' | translate}}</mat-radio-button>
+                            <mat-radio-button value="female" class="col-mat-6 col-sm-6 col-xs-6">{{'Login_SecurityQuestions.Female' | translate}}</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <!-- Referral code form field -->
+                    <div class="white-line form-group col-mat-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                            <span matPrefix><i class="material-icons">local_offer</i>&nbsp;</span>
+                            <input #first matInput placeholder="{{'LoginScreen_SignIn.enterReferralCode'| translate}}" type="text" [(ngModel)]="registerModel.inviteCode" [ngModelOptions]="{standalone: true}">
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                        <button class="btn custom-btn btn-round full-width"  (click)="onRegister()"> {{'LoginScreen_SignUp.SignUp' | translate}} </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

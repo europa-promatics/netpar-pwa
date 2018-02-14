@@ -1,0 +1,191 @@
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'first name missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.enterFirstName" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'last name missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.enterLastName" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'mobile number missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.enterMobileNumber" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'state missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"Login_SecurityQuestions.stateRequired" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'district missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"Login_SecurityQuestions.districtRequired" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'block missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"Login_SecurityQuestions.blockRequired" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'Dob  missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"Login_SecurityQuestions.dobRequired" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'gender missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"Login_SecurityQuestions.genderRequired" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'incorrect mobile number'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.incorrectMobileNumber" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'please enter comment'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.enterComment" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'section missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.sectionMissing" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'category missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.categoryMissing" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'subcategory missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.subcategoryMissing" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'language missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.languageMissing" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'title missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.titleMissing" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'description missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.descriptionMissing" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+<div class="modal-content cus-modal" *ngIf="errorMessage == 'media missing'">
+	<div class="modal-header text-center color-red">
+		<h1 class="close-icon m-0"> <i class="material-icons">highlight_off</i></h1>	
+		<h4 class="m-t-0">{{"validationPopups.sorry" | translate}}</h4>
+	</div>
+	<div class="modal-body text-center ">
+		<p> {{"validationPopups.mediaMissing" | translate}} </p>
+		<button class="btn custom-btn full-width btn-round" (click)="onClosed()" > {{"Login_ErrorMessage_IncorrectMobileNumber.ok" | translate}} </button>
+	</div>
+</div>
+
+
+

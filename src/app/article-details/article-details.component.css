@@ -1,0 +1,131 @@
+/*.read-panel{
+	height: 72vh;
+}*/
+
+.mat-input-placeholder-wrapper .mat-form-field-placeholder{
+	line-height: 1.52 !important;
+}
+
+.mat-form-field-placeholder {
+    line-height: 1.52 !important;
+}
+
+.mat-form-field {
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: 1.52!important;
+}
+
+
+.btn.primary {
+  background-color: #9c27b0 ; }
+
+.btn.info {
+  background-color: #00bcd4 ; }
+
+.btn.warning {
+  background-color: #FFCC00 ; }
+
+.btn.success {
+  background-color: #4caf50 ; }
+
+.btn.danger {
+  background-color: #f44336 ; }
+
+.btn.rose {
+  background-color: #e91e63 ; }
+
+.btn.orange {
+  background-color: #ffa700 ; }
+
+.btn {
+  padding: 12px 6px;
+  min-width: 100px; }
+
+.btn.not_default{
+  background: none;
+  /*padding: 6px 6px;*/
+}
+.btn.not_default .span-icns{
+  border: 1px solid;
+  border-radius: 60px;
+  display: inline-block;
+  font-size: 12px;
+  height: 20px;
+  line-height: 17px;
+  text-align: center;
+  width: 20px;
+}
+.text-orange{
+  color: #ffa700;
+}
+
+.upper-box {
+  width: 100%;
+  float: left;
+}
+
+.btn.success.inactive{
+  background-color: transparent;
+  border: 1px solid #4caf50;
+  color: #4caf50;
+}
+
+.btn.primary.inactive {
+  background-color: transparent;
+  border: 1px solid #9c27b0;
+  color: #9c27b0 ;
+}
+
+.btn.info.inactive {
+  background-color: transparent;
+  border: 1px solid #00bcd4;
+  color: #00bcd4;
+}
+
+.btn.warning.inactive {
+  background-color: transparent;
+  border: 1px solid #FFCC00;
+  color: #FFCC00;
+}
+.btn.danger.inactive {
+  background-color: transparent;
+  border: 1px solid #f44336;
+  color: #f44336;
+}
+
+.btn.rose.inactive {
+  background-color: transparent;
+  border: 1px solid #e91e63;
+  color: #e91e63;
+}
+
+.btn.orange.inactive {
+  background-color: transparent;
+  border: 1px solid #ffa700;
+  color: #ffa700;
+}
+.btn.not_default.inactive{
+  background: #efefef none repeat scroll 0 0;
+  box-shadow: none;
+}
+
+
+.dashed-brd{
+  width: 100%;
+  float: left;
+}
+/*12-29*/
+.read-panel .wrap-data .wrap-text{
+  width: 100%;
+  float: left;
+}
+/*1-2-2018*/
+
+.btn, .btn:hover, .btn:focus, .btn:visited{
+  box-shadow: none;
+}
+img, img.rad-shad{
+  box-shadow: none;
+}

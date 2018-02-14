@@ -1,0 +1,60 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+	<app-navbar></app-navbar>
+	<div class="loader-box" *ngIf="loading">
+        <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
+    <div class="cusmain-panel" (click)="navRemove()">
+		<div class="tb-wrap">
+			<section class="invite-sec">
+				<div class="card cus-card">
+					<mat-tab-group class="mat-purple" #tabGroup>
+					  	<!-- saved posts -->
+					  	<mat-tab label="{{'ProfilePage_Scroll1.SavedPosts' | translate}}">
+					  		<div class="list-view3 list-view7">
+				    			<div class="view-lists grid-1" *ngFor="let savedPost of savedPosts;let i=index">
+							        <a (click)="onSaved(savedPost)" class="{{colorClass(i)}}">
+							        	<img src="{{savedPost.thumbnailPicture}}" class="img-effect img-responsive" *ngIf="savedPost.thumbnailPicture">
+							        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!savedPost.thumbnailPicture">   
+						    			<div class="list-text-wrap one-heading">
+							    			<div class="suggested-div">
+							    				<div class="suggested-text">{{savedPost.headline.slice(0,20)}} </div>
+							    			</div>
+							    			<div class="detail-text">{{savedPost.tagline.slice(0,25)}} </div>
+						    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+							    		</div>
+						    			<div class="line"></div>
+						    		</a>
+						    	</div>
+						    </div>	
+					  	</mat-tab>
+					  	<!-- saved contribution -->
+					  	<mat-tab label="{{'ProfilePage_Scroll1.Contributions' | translate}}">
+					  		<div class="list-view3 list-view7">
+				    			<div class="view-lists grid-1" *ngFor="let myContribution of myContributions;let i=index">
+							        <a class="{{colorClass(i)}}">
+							        	<img [src]="myContribution.media[0].url" class="img-effect img-responsive" *ngIf="myContribution.media.length !='0'"> 
+							        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="myContribution.media.length =='0'">
+						    			<div class="list-text-wrap one-heading">
+							    			<div class="suggested-div">
+							    				<div class="suggested-text">{{myContribution.title.slice(0,20)}} </div>
+							    			</div>
+							    			<div class="detail-text">{{myContribution.description.slice(0,25)}}</div>
+						    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+							    		</div>
+						    			<div class="line"></div>
+						    		</a>
+						    	</div>
+						    </div>	
+					  	</mat-tab>
+					</mat-tab-group>
+				</div>
+			</section>
+			<app-footer></app-footer>
+		</div>
+	</div>
+</div>

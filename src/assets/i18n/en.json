@@ -1,0 +1,319 @@
+{
+	"translation": {
+        "en": "English"
+    },
+
+    "LaunchScreen2":{
+        "WelcometoNetpar":"Welcome to Netpar",
+        "Tagline":"Tagline",
+        "Comejoinus":"Come, join us",
+        "Start":"Start"
+    },
+
+    "validationPopups":{
+        "sorry":"Sorry!",
+        "enterFirstName":"Please Enter First Name",
+        "enterLastName":"Please Enter Last Name",
+        "enterMobileNumber":"Please Enter Mobile Number",
+        "incorrectMobileNumber":"your mobile number is incorrect retype it",
+        "enterComment":"Please Enter Comment",
+        "sectionMissing":"Please select section",
+        "categoryMissing":"Please select category",
+        "subcategoryMissing":"Please select subcategory",
+        "languageMissing":"Please Select Language",
+        "titleMissing":"Please enter tiltle",
+        "descriptionMissing":"Please enter description",
+        "mediaMissing":"please Attach media"
+    },
+
+    "WelcomeScreen":{
+        "WelcometoNetpar":"Welcome to Netpar",
+        "SignIn":"Sign In",
+        "SignUp":"Sign Up",
+        "takeTour":"Take a Tour"
+    },
+
+    "LoginScreen_SignIn":{
+        "previous":"Previous",
+        "FirstName":"First Name",
+        "LastName":"Last Name",
+        "MobileNumber":"Mobile Number",
+        "SignIn":"Sign In ",
+        "NewUser":"New User? Sign Up",
+        "continueToSignIn":"Continue to Sign in",
+        "haveANewNumber":"Do you have a new number? Update",
+        "Next":"Next",
+        "firstNameRequired":"first name  is required",
+        "lastNameRequired":"last name  is required",
+        "onlyAlphabets":"only alphabets are acceptable",
+        "mobileRequired":"Mobile number is required",
+        "onlyDigits":"only digits are acceptable",
+        "lessThanTen":"contact number can not be less than 10 digits",
+        "moreThanTen":"contact number can not be more than 10 digits",
+        "youAreNotRegistered":"You are not registered,please signup ",
+    },
+
+    "errorMessage":{
+        "sorry":"Sorry!",
+        "somethingWentWrong":"something went wrong",
+        "tryLater":"Please try after some time",
+        "invalidOtp":"Invalid Otp"
+    },
+
+    "LoginScreen_SignUp":{
+        "FirstName":"First Name",
+        "LastName":"Last Name",
+        "MobileNumber":"Mobile Number",
+        "SignUp":"Sign Up",
+        "ExistingUser":"Existing User? Sign In",
+        "sorry":"Sorry!",
+        "alreadyRegistered":"Entered Mobile Number Is Already Registered",
+        "Existing":"Existing User?"
+    },
+
+    "Login_SecurityQuestions":{
+        "State":"State",
+        "District":"District",
+        "Block":"Block",
+        "Date":"DD",
+        "Month":"MM",
+        "Year":"YY",
+        "DateofBirth":"Date of Birth",
+        "Gender":"Gender",
+        "Male":"Male",
+        "Female":"Female",
+        "stateRequired":"state is required",
+        "districtRequired":"district is required",
+        "blockRequired":"block is required",
+        "dobRequired":"Date of Birth is required",
+        "genderRequired":"gender is required",
+        "anserSecurityQuestions":"Please answer the security question.",
+        "Ques":"Ques",
+        "stateQues":"What is your state?",
+        "districtQues":"What is your District?",
+        "blockQues":"What is your Block?",
+        "dobQues":"What is your Date of Birth?",
+        "genderQues":"What is your Gender?",
+        "mobileNumberQues":"What is your Last Mobile Number?",
+        "previousMobileNumber":"Previous mobile number",
+        "update":"update",
+        "mobileNumber":"mobile number",
+        "newMobileNumber":"new mobile number",
+        "stateIncorrect":"state is incorrect",
+        "districtIncorrect":"district is incorrect",
+        "blockIncorrect":"Block is incorrect",
+        "dobIncorrect":"Dob is incorrect",
+        "genderIncorrect":"gender is incorrect"
+    },
+
+    "Login_ErrorMessage_IncorrectMobileNumber":{
+        "sorry":"Sorry!",
+        "incorrectMobileNumber":"Your Mobile Number is incorrect, please retype it and try again",
+        "ok":"Ok"
+    },
+
+
+    "Login_ErrorMessage_MobileNumbernotenteredcorrectly":{
+        "sorry":"Sorry!",
+        "notRegistered":"Your Mobile Number is not registered with us, kindly sign up as a new user",
+        "SignUp":"Sign Up"
+    },
+
+
+    "Login_SuccessfulSignIn":{
+        "Welcomeback":"Welcome back",
+        "signInSuccessfull":"You have successfully signed in"
+    },
+
+    "Login_ErrorMessage_RecheckYourDetails":{
+        "sorry":"Sorry!",
+        "recheckDetails":"Please recheck your details again",
+        "Help":"Help",
+        "SignUp":"Sign Up"
+    },
+
+
+    "Login_ErrorMesage_UpdateYourMobileNumber":{
+        "sorry":"Sorry!",
+        "updateMobile":"Do you want to update your mobile number?",
+        "yes":"Yes",
+        "no":"No"
+    },
+
+    "Login_ErrorMesage_IsThisYou":{
+        "Hi":"Hi",
+        "isThisYou":"Is this you?",
+        "yes":"Yes",
+        "no":"No"
+    },
+
+    "Login_ErrorMesage_SecurityQuestionAnswerisincorrect":{
+        "sorry":"Sorry!",
+        "incorrectAnswer":" Your Answer is incorrect",
+        "Help":"Help",
+        "SignUp":"Sign Up"
+    },
+
+    "OTPScreen":{
+        "great":"Great!",
+        "OtpSent":"We have sent you the OTP,",
+        "wait":"wait till we detect it",
+        "orYouCanEnter":"Or you can enter the OTP",
+        "enterOTp":"enter OTP",
+        "ResendOTP":"Resend OTP",
+        "Go":"Go"
+    },
+
+    "OTPScreen_ErrorMessage1":{
+        "sorry":"Sorry!",
+        "unableToDetect":"Sorry, we were unable to detect your OTP",
+        "ResendOTP":"Resend OTP",
+        "Help":"Help"
+    },
+
+    "BottomBarandTopBar":{
+        "welcomeForMale":"Welcome, ",
+        "welcomeForFemale":"Welcome, ",
+        "home":"Home",
+        "myAccount":"My Account"
+    },
+
+    "ContentItemView_Scroll1":{
+        "By":"By",
+        "Like":"Like",
+        "Comment":"Comment",
+        "Save":"Save", 
+        "Download":"Download",
+        "ContinueReading":"Continue Reading",
+        "ViewMore":"View More"
+    },
+
+    "ContentItemView_Scroll2":{
+        "Views":"Views",
+        "Likes":"Likes",
+        "Comments":"Comments",
+        "Saves":"Saves",
+        "Donwload":"Donwload",
+        "SuggestedArticles":"Suggested Articles"
+    },
+
+    "CommentBox":{
+        "Typeyourcomment":"Type your comment",
+        "EnteryouComment":"Enter you Comment"
+    },
+
+    "FloatingButtonScreen_Help":{
+        "Help":"Help",
+        "CallforHelp":"CallforHelp",
+        "WhatsappforHelp":"WhatsappforHelp",
+        "GotoourHelpSection":"GotoourHelpSection"
+    },
+
+    "FloatingButtonScreen_Share":{
+        "Share":"Share",
+        "Shareviatextmessage":"Share via text message",
+        "Shareonwhatsapp":"Share on whatsapp",
+        "ShareonFacebook":"Share on Facebook"
+    },
+
+    "ContentItemSaved":{
+        "saved":"SAVED!",
+        "viewSavedItems":"Go here/Click here to view your saved items"
+    },
+
+    "ContentItemDownloaded":{
+        "downloaded":"DOWNLOADED!",
+        "viewdownloadedItems":"Go here/Click here to view your downloaded items"
+    },
+
+    "MenuScreen":{
+        "Home":"Home",
+        "MyAccount":"My Account",
+        "ViewMySavedItems":"View My Saved Items",
+        "ViewMyDownloadedItems":"View My Downloaded Items",
+        "ViewMyContributions":"View My Contributions",
+        "FriendsOnTheNetwork":"Friends on the Network",
+        "Contribute":"Contribute",
+        "InviteFriends":"Invite Friends",
+        "Aboutus":"About us",
+        "Rateus":"Rate us",
+        "section":"Section"
+    },
+
+    "ProfilePage":{
+        "Edit":"Edit", 
+        "Logout":"Logout",
+        "ViewProfile":"View Profile",
+        "ViewSavedItems":"View Saved Items",
+        "ViewDownloadeditems":"View Downloaded items",
+        "MyContributions":"My Contributions",
+        "FriendsOnMyNetwork":"Friends on my Network"
+    },
+
+    "ProfilePage_Scroll1":{
+        "Downloaded":"Downloaded",
+        "SeeMore":"See More",
+        "FriendsOnMynetwork":"Friends on My network",
+        "SeeMore":"See More",
+        "SavedPosts":"Saved Posts",
+        "Contributions":"Contributions"
+    },
+
+    "DeletedPopupScreen":{
+        "deletedFromPhone":"This item will be deleted from your phone also",
+        "yes":"Yes", 
+        "no":"No"
+    },
+
+    "Friendsonthenetwork":{
+        "FriendsOnNetpar":"Friends On Netpar",
+        "InviteMoreFriends":"Invite More Friends",
+        "Invite":"Invite" 
+    },
+
+    "ContributionForm":{
+        "SelectState":"Select State",
+        "SelectLanguage":"Select Language",
+        "SelectSection":"Select Section",
+        "SelectCategory":"Select Category",
+        "SelectSubcategory":"Select Subcategory",
+        "Title":"Title",
+        "EnterYourDescriptionHere":"Enter Your Description Here",
+        "AttachMedia":"Attach Media",
+        "close":"close"
+    },
+
+    "FiltersScreen":{
+        "ApplyFilter":"Apply Filter",
+        "ClearAllFilters":"Clear All Filters"
+    },
+
+    "Notifications":{
+        "Userhascommentedon":"User has commented on",
+        "Userlikesyour" :"User likes your",
+        "Yourcontributionhasbeenaccepted":"Your contribution has been accepted",
+        "Yourcontributionislive":"Your contribution is live"
+    },
+
+    "download":{
+        "downloadAppFromPlaystore":"Download app from play store",
+        "toUseTheseFunctios":"to  use these functions, you must download the app, redirecting you to the play store"
+    },
+
+    "toasterMsgs":{
+        "noCategory":"no category in this section",
+        "noSubCategory":"no subcategory in this category"
+    },
+
+    "logout":{
+        "wantToLogout":"Do you want to log out",
+        "yes":"yes", 
+        "no":"no"
+    },
+
+    "GuideScreen":{
+        "toViewDownloaded":"click here to view downloaded items",
+        "toViewSaved":"click here to view saved items"
+    }
+
+}

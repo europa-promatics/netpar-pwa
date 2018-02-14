@@ -1,0 +1,112 @@
+<footer>
+    <div class="footer-sec">
+        <nav class="">
+            <ul>
+                <li routerLinkActive="active">
+                    <a routerLink="/Home">
+                        <i class="cusIco-home"></i>
+                        <div> {{"BottomBarandTopBar.home" | translate}} </div>
+                    </a>
+                </li>
+                <li>
+                    <a class="text-yellow" routerLink="/submit-content" >
+                        <i class="material-icons font_34">add_circle</i>
+                    </a>
+                </li>
+                <li class="dropdown profile-dropdown" routerLinkActive="active">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="cusIco-profil"></i>
+                        <div> {{"BottomBarandTopBar.myAccount" | translate}} </div>
+                    </a>
+                    <div class="dropdown-menu">
+                        <ul class="profile-dropdown-menu">
+                            <li>
+                                <a routerLink="/account" class="bg-yellow-g" >
+                                    <i class="cusIco-profil"></i>{{"ProfilePage.ViewProfile" | translate}}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="bg-yellow-g"  (click)="onMyDownloads()">
+                                    <i class="cusIco-donload"></i> {{"ProfilePage.ViewDownloadeditems" | translate}}
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/account" class="bg-yellow-g"  (click)="onMyFriends()">
+                                    <i class="cusIco-friends"></i> {{"ProfilePage.FriendsOnMyNetwork" | translate}}
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/saved-articles" class="bg-yellow-g"  (click)="onSavedArticles()" >
+                                    <i class="cusIco-badge"></i> {{"ProfilePage.ViewSavedItems" | translate}}
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="/contributions" class="bg-yellow-g"  (click)="onMyContriBution()">
+                                    <i class="fa fa-plus"></i> {{"ProfilePage.MyContributions" | translate}}
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    
+    <div class="bottom-option">
+        <ul class="bottom-ul" type="none">
+            <li class="dropdown " id="share" *ngIf="showShareButton && !shareButtonsFromArticleDetail" (click)="onShare()">
+                <!-- <share-buttons [url]="'https://twitter.com'" [showCount]="show"></share-buttons> -->
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <!-- <i class="material-icons">share</i> -->
+                    <img src="./assets/img/share.png" class="img-responsive" />
+                </a>
+                <ul class="dropdown-menu bottom-dropdown">
+                    <!-- <li > 
+                        <a shareButton="facebook" sbUrl="https://www.netpar.in/#/Story/{{appProvider.current.slug}}" > <span class="bg-facebook" > <i class="fa fa-facebook"></i> </span><div>{{"FloatingButtonScreen_Share.ShareonFacebook" | translate}}</div> </a>
+                     </li> -->
+                     <li > 
+                        <a  (click)="share()" > <span class="bg-facebook" > <i class="fa fa-facebook"></i> </span><div>{{"FloatingButtonScreen_Share.ShareonFacebook" | translate}}</div> </a>
+                     </li>
+                    <li> 
+                        <a shareButton="vk" sbUrl="https://www.netpar.in/#/Story/{{appProvider.current.slug}}"> <span class="bg-blue" > <i class="fa fa-envelope-o"></i> </span> <div>{{"FloatingButtonScreen_Share.Shareviatextmessage" | translate}}</div> </a> 
+                    </li>
+                    <!-- <li> <a  href="https://api.whatsapp.com/send?text=https://www.netpar.in/#/Story/{{appProvider.current.slug}}"> <span class="bg-whatsapp"> <i class="fa fa-whatsapp"></i> </span> <div>{{"FloatingButtonScreen_Share.Shareonwhatsapp"| translate}}</div> </a> </li> -->
+                    <li> <a  shareButton="whatsapp" sbUrl="https://www.netpar.in/#/Story/{{appProvider.current.slug}}" > <span class="bg-whatsapp"> <i class="fa fa-whatsapp"></i> </span> <div>{{"FloatingButtonScreen_Share.Shareonwhatsapp"| translate}}</div> </a> </li>
+                </ul>
+            </li>
+            <li class="dropdown {{classtoopen}}" id="share" *ngIf="showShareButton && shareButtonsFromArticleDetail" >
+                <!-- <share-buttons [url]="'https://twitter.com'" [showCount]="show"></share-buttons> -->
+                <a class="dropdown-toggle"  role="button" aria-haspopup="true" aria-expanded="false" (click)="onFloatButton()">
+                    <!-- <i class="material-icons">share</i> -->
+                    <img src="./assets/img/share.png" class="img-responsive" />
+                </a>
+                <ul class="dropdown-menu bottom-dropdown">
+                    <!-- <li> 
+                        <a shareButton="facebook" sbUrl="https://www.netpar.in/#/Story/{{appProvider.current.slug}}" [sbTitle]="appProvider.current.slug"  sbImage="http://www.netpar.in/netpar/uploads/content/thumbnails/1517304317.png"> <span class="bg-facebook" > <i class="fa fa-facebook"></i> </span><div>{{"FloatingButtonScreen_Share.ShareonFacebook" | translate}}</div> </a>
+                     </li> -->
+                     <li> 
+                        <a  (click)="share()" > <span class="bg-facebook" > <i class="fa fa-facebook"></i> </span><div>{{"FloatingButtonScreen_Share.ShareonFacebook" | translate}}</div> </a>
+                     </li>
+                    <li> 
+                        <a shareButton="vk" sbUrl="https://www.netpar.in/#/Story/{{appProvider.current.slug}}"> <span class="bg-blue" > <i class="fa fa-envelope-o"></i> </span> <div>{{"FloatingButtonScreen_Share.Shareviatextmessage" | translate}}</div> </a> 
+                    </li>
+                    <!-- <li> <a  href="https://api.whatsapp.com/send?text=https://www.netpar.in/#/Story/{{appProvider.current.slug}}"> <span class="bg-whatsapp"> <i class="fa fa-whatsapp"></i> </span> <div>{{"FloatingButtonScreen_Share.Shareonwhatsapp"| translate}}</div> </a> </li> -->
+                    <li> <a  shareButton="whatsapp" sbUrl="https://www.netpar.in/#/Story/{{appProvider.current.slug}}" > <span class="bg-whatsapp"> <i class="fa fa-whatsapp"></i> </span> <div>{{"FloatingButtonScreen_Share.Shareonwhatsapp"| translate}}</div> </a> </li>
+                </ul>
+            </li>
+            <li class="dropdown two-dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <!-- <i class="fa fa-question"></i> -->
+                    <img src="./assets/img/help.png" class="img-responsive" />
+                </a>
+                <ul class="dropdown-menu bottom-dropdown">
+                    <!-- <li> <a routerLink="/homepage"> <span class="bg-blue"> <i class="material-icons">call</i> </span><div>Call</div></a> </li> -->
+                    <li> <a href="https://api.whatsapp.com/send?phone=918879732726&text=हा%20नेटपरवर%20मदत"> <span class="bg-whatsapp"> <i class="fa fa-whatsapp"></i> </span><div>{{"FloatingButtonScreen_Help.WhatsappforHelp" | translate}}</div></a> </li>
+                    <li> <a routerLink="/Faq" > <span class="bg-red"> <i class="fa fa-handshake-o"></i> </span><div>{{"FloatingButtonScreen_Help.Help" | translate}}</div></a> </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+</footer>

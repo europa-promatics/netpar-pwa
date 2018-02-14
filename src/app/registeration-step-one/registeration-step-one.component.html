@@ -1,0 +1,33 @@
+<app-navbar2></app-navbar2>
+<section class="home-sec wrap">
+    <div class="loader-box" *ngIf="loading">
+        <img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+    </div>
+    <div class="home-form">
+        <div class="login login-panel">
+            <div> 
+                <img src="./assets/img/logo-5.png" />
+            </div>
+            <div class="homeas-sec">
+                <!-- Step one for registration by register phone number -->
+                <form class="example-form" >
+                    <div class="white-line form-group col-mat-12 col-sm-12 col-xs-12">
+                        <mat-form-field>
+                            <span matPrefix> <i class="cusIco-contact"></i>&nbsp; </span>
+                            <input matInput placeholder="{{'LoginScreen_SignIn.MobileNumber' | translate}}" type="text" [(ngModel)]="loginModel.mobileNumber" name="contactNumber" type="tel" maxlength="10" >
+                        </mat-form-field>
+                    </div>
+                    <div class="form-group col-mat-12 col-sm-12 col-xs-12">
+                        <button class="btn custom-btn btn-round full-width"  (click)="onNext()"  > {{"LoginScreen_SignUp.SignUp" | translate}} </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-bar">
+        <a (click)="onExistingUser()"> {{"LoginScreen_SignUp.ExistingUser" | translate}} </a>
+    </div>
+    
+</section>
+
+

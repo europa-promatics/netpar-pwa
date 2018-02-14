@@ -1,0 +1,19 @@
+<section class="home-sec">
+    <div class="home-form">
+        <div class="home-panel">
+            <img src="./assets/img/logo-5.png" />
+            <h3 class="text-center"> {{"WelcomeScreen.WelcometoNetpar" | translate}} </h3>
+            <div class="home-asec">
+                <div class="homeas-btn">
+                    <!-- Welcome screen button with sign in and sign up button -->
+                    <div class="btn-divs">
+                        <button class="btn custom-btn btn-round" (click)="openDialog()">{{"WelcomeScreen.SignIn" | translate}} <i class="material-icons">keyboard_backspace</i> </button>
+                    </div>
+                    <div class="btn-divs">
+                        <button class="btn black-btn btn-round" (click)="onSignUp()"> {{"WelcomeScreen.SignUp" | translate}} <i class="material-icons">keyboard_backspace</i></button>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,19 @@
+<section class="home-sec welcome">
+	<div class="text-center">
+		<img src="./assets/img/logo_w.png" />
+	</div>
+
+	<div class="welcome-content welcome-content2 text-center">
+	    <div class="col-mat-12 col-sm-12 col-xs-12">
+	    	<!-- first screen to select language -->
+	    	<mat-form-field class="welcome-select">
+				<mat-select placeholder="{{'ContributionForm.SelectLanguage' | translate}}"  [(ngModel)]="selectedLanguage" class=" btn black-btn" (change)="onSelected()">
+		    		<mat-option value="Marathi">मराठी</mat-option>
+		        </mat-select>
+	    	</mat-form-field>
+	    </div>
+	</div>
+	<div class="triangle first-triangle"></div>
+	<div class="triangle second-triangle"></div>
+	<div class="triangle third-triangle"></div>
+</section>

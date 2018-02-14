@@ -1,0 +1,17 @@
+.no-div{
+	align-content: center;
+	align-items: center;
+	align-self: center;
+	background-color: #edf1f4;
+	display: flex;
+	flex-direction: row;
+	float: left;
+	height: 100vh;
+	text-align: center;
+	width: 100%;
+}
+
+
+.no-div > div {
+  width: 100%;
+}

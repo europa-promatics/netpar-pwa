@@ -1,0 +1,58 @@
+<div class="wrapper">
+	<div class="loader-box" *ngIf="loading">
+    	<img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+	</div>
+    <app-back-button-navbar></app-back-button-navbar>
+    <div class="cusmain-panel" (click)="navRemove()"  [lazy-load-images]="{ rootMargin: '50px' }">
+		<div class="header-extra" ></div>
+		<section class="homepage-sec tb-wrap">
+			<!-- 4 different category view templates binding  -->
+		    <div class="homepage-listing" *ngIf="categoryTemplateStyle=='Category-view Template Four'">
+			    <ul class="homepage-ulist">
+			    	<li class="{{bgClass(i)}}" *ngFor="let category of categories; let i=index"> 
+			    		<a (click)= "onCategory(category)"> {{category.categoryName}} </a>
+			    	</li>
+			    </ul>
+		    </div>
+		    <div class="homepage2-listing" *ngIf="categoryTemplateStyle=='Category-view Template Two'">
+			    <ul class="homepage2-ulist">
+			    	<li class="rect-list" *ngFor="let category of categories">
+			    		<a (click)= "onCategory(category)">
+			    			<img [attr.data-src]="category.thumbnailImage" *ngIf="category.thumbnailImage"> 
+			    			<img src="./assets/img/noImage1.jpg"  *ngIf="!category.thumbnailImage"> 
+			    		<p>{{category.categoryName}} </p> </a>
+			    	</li>
+			    </ul>
+		    </div>
+		    <div class="homepage2-listing" *ngIf="categoryTemplateStyle=='Category-view Template One'">
+			    <ul class="homepage2-ulist">
+			    	<li *ngFor="let category of categories">
+			    		<a (click)= "onCategory(category)" >
+			    			<img [attr.data-src]="category.thumbnailImage" *ngIf="category.thumbnailImage"> 
+			    			<img src="./assets/img/noImage1.jpg"  *ngIf="!category.thumbnailImage"> 
+			    		<p>{{category.categoryName}} </p> </a>
+			    	</li>	
+			    </ul>
+		    </div>
+		    <div *ngIf="categoryTemplateStyle=='Category-view Template Three'">
+		    	 <ul class="homepage-ulist sec">
+			    	<li *ngFor="let category of categories; let i=index">
+			    		<div class="homepage-bg" [ngStyle]="{'background-image': 'url(' + category.horigontalImage + ')'}" (click)= "onCategory(category)" *ngIf="category.horigontalImage">
+			    			<a>
+			    				{{category.categoryName}}
+			    				<span class="ulist-arrow"> <i class="fa fa-angle-right"></i> </span>
+			    	   		</a> 
+			    		</div>
+			    		<div class="homepage-bg" style="background-image:url('./assets/img/noImage2.png')" (click)= "onCategory(category)" *ngIf="!category.horigontalImage">
+			    			<a>
+			    				{{category.categoryName}}
+			    				<span class="ulist-arrow"> <i class="fa fa-angle-right"></i> </span>
+			    	   		 </a> 
+			    		</div>
+			    	</li>
+			    </ul>
+		    </div>
+		</section>
+		<app-footer></app-footer>
+	</div>
+</div>

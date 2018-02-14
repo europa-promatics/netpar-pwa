@@ -1,0 +1,256 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+	<app-navbar></app-navbar>
+    <div class="cusmain-panel" (click)="navRemove()">
+    	<div class="loader-box" *ngIf="loading">
+    		<img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+		</div>
+		<div class="tb-wrap">
+			<section class="article-sec">
+				<div class="card cus-card bg-img">
+					<!-- profile image -->
+	    			<div class="user-profile">	
+	    				<div class="user-img-wrap">
+		    				<img src="{{profilePicture}}" class="img-responsive"  *ngIf="!imageAvailable"/>
+		    				<img src="{{imageAvailable}}" *ngIf="imageAvailable" >
+		    				<span class="edit badge" (click)="file.click()" ><i class="material-icons">mode_edit</i>  </span>
+		    				<span class="delete badge" (click)="onDeleteProfileImage()"><i class="material-icons">delete</i>  </span>
+		    			</div>
+
+	    				<div style="display: none;"><input type="file" accept="image/*" #file id="uploadImage" (change)="selectImage($event)"></div>
+	    				<div> {{userInfo.firstName}} {{userInfo.lastName}} </div>
+	    			</div>
+					<!-- Detail of profile -->
+	    			<div class="number-profile">
+	    				<div>
+	    					<span> {{userInfo.myFriends.length}} </span>
+	    					<div> {{"ProfilePage_Scroll1.Friends" | translate}} </div>
+	    				</div>
+	    				<div>
+	    					<span> {{userInfo.totalPublications}}</span>
+	    					<div> {{"ProfilePage_Scroll1.article" | translate}} </div>
+	    				</div>
+	    				<div *ngIf="myContributions">
+	    					<span> {{myContributions.length}} </span>
+	    					<div> {{"ProfilePage_Scroll1.Contributions" | translate}} </div>
+	    				</div>
+	    			</div>
+	    			<div class="profile-detail">
+	    				<!-- Profile Number image -->
+	    				<div class="list" *ngIf="!editMobileNumber">
+	    					<span>
+	    						<i class="material-icons">call</i>
+	    					</span>
+	    					<span> +91-{{updateMobileModel.mobileNumberNew}} </span>
+	    					<span class="" (click)="edit('mobileNumber')"> <i class="material-icons">mode_edit</i> </span>
+	    				</div>
+	    				<div class="white-line" *ngIf="editMobileNumber">
+	    					<mat-form-field>
+	                            <input matInput placeholder="Contact No" type="tel" maxlength="10" [(ngModel)]="updateMobileModel.mobileNumberNew">
+	                            <span matSuffix (click)="onSend('mobileNumber')"><i class="material-icons">send</i>&nbsp;</span>
+	                        </mat-form-field>
+	    				</div>
+	    				<!-- User Gender -->
+	    				<div class="list" *ngIf="!editgender">
+	    					<span>
+	    						<i class="fa fa-venus-mars"></i>
+	    					</span>
+	    					<span *ngIf="updateProfileModel.gender=='male'"> {{"Login_SecurityQuestions.Male" | translate}} </span>
+	    					<span *ngIf="updateProfileModel.gender=='female'"> {{"Login_SecurityQuestions.Female" | translate}} </span>
+	    					<span class="" (click)="edit('gender')"> <i class="material-icons">mode_edit</i> </span>
+	    				</div>
+	    				<div class="white-line" *ngIf="editgender">
+		    				<table class="example-full-width" cellspacing="0">
+		    					<tr>
+							    	<mat-radio-group name="Gender" [(ngModel)]="updateProfileModel.gender">
+							    		<mat-radio-button value="male">{{'Login_SecurityQuestions.Male' | translate}}</mat-radio-button>
+                        				<mat-radio-button value="female">{{'Login_SecurityQuestions.Female' | translate}}</mat-radio-button>
+							    	</mat-radio-group>
+							    	<td>
+							    		<span (click)="onSend('gender')"><i class="material-icons">send</i>&nbsp;</span>
+							    	</td>
+							  	</tr>
+							</table>
+						</div>
+	    				<!-- Address -->
+	    				<div class="list" *ngIf="!editAddress">
+	    					<span>
+	    						<i class="material-icons" >location_on</i>
+	    					</span>
+	    					<span> {{userInfo.blockRegional}},{{userInfo.districtRegional}},{{userInfo.stateRegional}} </span>
+	    					<span class=""> <i class="material-icons" (click)="edit('address')">mode_edit</i> </span>
+	    				</div>
+	    				<div class="white-line" *ngIf="editAddress">
+		    				<table class="example-full-width" cellspacing="0">
+		    					<tr>
+							    	<td>
+							    		<mat-form-field>   
+				                            <mat-select placeholder="{{'Login_SecurityQuestions.State' | translate}}" name="state" [(ngModel)]="updateProfileModel.stateRegional">
+				                                <mat-option  [value]="stateData.hindiName" (click)="onState(stateData)"> {{stateData.hindiName}} </mat-option>
+				                            </mat-select>
+                        				</mat-form-field>
+							    	</td>
+							    	<td>
+							    		<mat-form-field>
+				                            <mat-select placeholder="{{'Login_SecurityQuestions.District' | translate}}"  name="District" [(ngModel)]="updateProfileModel.districtRegional">
+				                        		<mat-option [value]="district.hindiName" *ngFor="let district of districtData" (click)="onDistrict(district)"> {{district.hindiName}} </mat-option>
+				                            </mat-select>
+                        				</mat-form-field>
+							    	</td>
+							    	<td>
+							    		<mat-form-field>
+				                            <mat-select placeholder="{{'Login_SecurityQuestions.Block' | translate}}" name="Block" [(ngModel)]="updateProfileModel.blockRegional">
+				                                <mat-option [value]="block.hindiName" *ngFor="let block of blockData" (click)="onBlock(block)"> {{block.hindiName}} </mat-option >
+				                            </mat-select>
+                       					</mat-form-field>
+							    	</td>
+							    	<td>
+							    		<span (click)="onSend('address')"><i class="material-icons">send</i>&nbsp;</span>
+							    	</td>
+							  	</tr>
+							</table>
+						</div>
+	    				<!-- Date of birth -->
+	    				<div class="list" *ngIf="!editDob">
+	    					<span>
+	    						<i class="fa fa-calendar"></i>
+	    					</span>
+	    					<span> {{updateProfileModel.dateOfBirth}} </span>
+	    					<span class="" (click)="edit('dob')"> <i class="material-icons">mode_edit</i> </span>
+	    				</div>
+						<div class="white-line" *ngIf="editDob">
+		    				<table class="example-full-width" cellspacing="0">
+		    					<tr>
+							    	<td>
+							    		<mat-form-field>
+				                            <mat-select placeholder="{{'Login_SecurityQuestions.Date' | translate}}"  name="Date" [(ngModel)]="dd">
+				                        		<mat-option  [value]="d.value" *ngFor="let d of days"> {{d.value}} </mat-option>
+				                            </mat-select>
+                        				</mat-form-field>
+							    	</td>
+							    	<td>
+							    		<mat-form-field>
+				                            <mat-select placeholder="{{'Login_SecurityQuestions.Month' | translate}}"  name="month" [(ngModel)]="mm">
+				                        		<mat-option  [value]="m.name" *ngFor="let m of months">{{m.name}}</mat-option>
+				                            </mat-select>
+				                        </mat-form-field>
+							    	</td>
+							    	<td>
+							    		<mat-form-field>
+				                            <mat-select placeholder="{{'Login_SecurityQuestions.Year' | translate}}"  name="year" [(ngModel)]="yy">
+				                        		<mat-option  [value]="y.year" *ngFor="let y of years"> {{y.year}} </mat-option>
+				                            </mat-select>
+				                        </mat-form-field>
+							    	</td>
+							    	<td>
+							    		<span (click)="onSend('dob')"><i class="material-icons">send</i>&nbsp;</span>
+							    	</td>
+							  	</tr>
+							</table>
+						</div>
+                    </div>
+				</div>
+				<!-- Download section -->
+				<div class="card cus-card downloads" *ngIf="downloadedMedia" id="downloaded">
+					<div class="list-heading brd-b">
+						{{"ProfilePage_Scroll1.Downloaded" | translate}}<span class="pull-right"> <i class="fa fa-angle-right"></i> </span>
+					</div>
+					<div class="download-box">
+						<div *ngFor="let media of downloadedMedia.slice(0, 5);let i = index" class="dow-li {{getImageCLass(i)}}">
+							<img [src]="media.url.mediaUrl" class="img-effect img-responsive" (click)="onImage(media.url.mediaUrl)"/>
+							<span class="badge" (click)="onRemoveDownload(i)"> <i class="fa fa-trash"></i> </span>
+						</div>
+					</div>
+					<div class="list-heading brd-t" (click)="onViewMoreDownloads()" *ngIf="downloadedMedia.length>5">
+						<span class="pull-right" > {{"ProfilePage_Scroll1.SeeMore" | translate}} <i class="fa fa-angle-right"></i> </span>
+					</div>
+				</div>
+				<!-- Friends section -->
+				<div class="card cus-card friend-list" id="destination">
+					<div class="list-heading">
+						{{"ProfilePage_Scroll1.FriendsOnMynetwork" | translate}}
+					</div>
+					<div class="download-box">
+						<div class="download-popup">
+							<div class="flex-div">
+								<div class="flex-innerdiv" >
+								   	<p> {{'download.downloadAppFromPlaystore' | translate}}</p>
+					   				<button class="btn custom-btn btn-round" (click)="onDownloadApp()">  {{'ContentItemView_Scroll2.Donwload' | translate}} </button>
+					           </div>
+					       </div>
+					   </div>
+						<div class="dow-li mat-3">
+							<img src="./assets/img/profile_user.jpg" class="img-effect img-responsive" />
+							<p> Raj Kumar </p>
+						</div>
+						<div class="dow-li mat-3">
+							<img src="./assets/img/profile_user.jpg" class="img-effect img-responsive" />
+							<p> Raj Kumar </p>
+						</div>
+						<div class="dow-li mat-3">
+							<img src="./assets/img/profile_user.jpg" class="img-effect img-responsive" />
+							<p> Raj Kumar </p>
+						</div>
+						<div class="dow-li mat-3">
+							<img src="./assets/img/profile_user.jpg" class="img-effect img-responsive" />
+							<p> Raj Kumar </p>
+						</div>
+						<div class="dow-li mat-3">
+							<img src="./assets/img/profile_user.jpg" class="img-effect img-responsive" />
+							<p> Raj Kumar </p>
+						</div>
+
+					</div>
+				</div>
+				
+				<div class="card cus-card"  >
+					<mat-tab-group class="cus-mat mat-purple">
+						<!-- Saved Post -->
+					  	<mat-tab label="{{'ProfilePage_Scroll1.SavedPosts' | translate}}">
+					  		<div class="list-view3 list-view7">
+				    			<div class="view-lists grid-1" *ngFor="let savedPost of savedPosts;let i=index">
+							        <a (click)="onSaved(savedPost)" class="{{colorClass(i)}}">
+							        	<img src="{{savedPost.thumbnailPicture}}" class="img-effect img-responsive" *ngIf="savedPost.thumbnailPicture">
+							        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="!savedPost.thumbnailPicture">  
+						    			<div class="list-text-wrap one-heading">
+							    			<div class="suggested-div">
+							    				<div class="suggested-text">{{savedPost.tagline.slice(0,20)}} </div>
+							    			</div>
+							    			<div class="detail-text"> {{savedPost.headline.slice(0,25)}} </div>
+						    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+							    		</div>
+						    			<div class="line"></div>
+						    		</a>
+						    	</div>
+						    </div>	
+					  	</mat-tab>
+						<!-- Contribution -->
+					  	<mat-tab label="{{'ProfilePage_Scroll1.Contributions' | translate}}">
+					  		<div class="list-view3 list-view7">
+				    			<div class="view-lists grid-1" *ngFor="let myContribution of myContributions;let i=index">
+							        <a class="{{colorClass(i)}}">
+							        	<img [src]="myContribution.media[0].url" class="img-effect img-responsive" *ngIf="myContribution.media.length !='0'"> 
+							        	<img src="./assets/img/noImage1.jpg" class="img-effect img-responsive" *ngIf="myContribution.media.length =='0'"> 
+						    			<div class="list-text-wrap one-heading">
+							    			<div class="suggested-div">
+							    				<div class="suggested-text">{{myContribution.title.slice(0,20)}} </div>
+							    			</div>
+							    			<div class="detail-text">{{myContribution.description.slice(0,25)}}</div>
+						    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+							    		</div>
+						    			<div class="line"></div>
+						    		</a>
+						    	</div>
+						    </div>	
+					  	</mat-tab>
+					</mat-tab-group>
+				</div>
+
+			</section>
+			<app-footer></app-footer>
+		</div>
+	</div>
+</div>

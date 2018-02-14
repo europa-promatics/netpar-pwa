@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "public": "netpar-pwa-dev",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

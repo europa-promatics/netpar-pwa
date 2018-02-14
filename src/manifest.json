@@ -1,0 +1,6 @@
+{
+  "short_name": "netpar-pwa",
+  "name": "netpar-pwa",
+  "start_url": "/?utm_source=homescreen",
+  "gcm_sender_id": "103953800507"
+}

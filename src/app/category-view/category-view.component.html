@@ -1,0 +1,95 @@
+<div class="wrapper">
+    <div class="sidebar" data-color='orange' data-background-color="orange" data-image="">
+        <app-sidebar></app-sidebar>
+        <div class="sidebar-background" style="background-image: url(./assets/img/FN3-2.jpg);background-position:center "></div>
+    </div>
+
+	<app-navbar></app-navbar>
+    <div class="cusmain-panel" (click)="navRemove()">
+    	<div class="loader-box" *ngIf="loading">
+    		<img src="./assets/img/netpar_logo.gif" class="img-responsive" />
+		</div>
+		<div class="header-extra" ></div>
+
+		<section class="homepage-sec tb-wrap">
+			<!-- Section template -->
+		    <div class="homepage-listing" #fixedBox >
+			    <ul class="homepage-ulist" *ngIf="sectionTemplate=='Section Template One'" lazy-load-images>
+			    	<li class="{{bgClass(i)}}" *ngFor="let sec of sections ; let i=index">
+			    		<a (click)= "onSection(sec)" >
+			    			<img *ngIf="sec.thumbnailImage" [attr.data-src]="sec.thumbnailImage" class="img-responsive"> 
+			    			<img *ngIf="!sec.thumbnailImage" src="./assets/img/noImage1.jpg" class="img-responsive">
+			    			{{sec.sectionName}}
+			    	    </a> 
+			    	</li>
+			    </ul>
+			    <ul class="homepage-ulist sec" *ngIf="sectionTemplate=='default Template'">
+			    	<li *ngFor="let sec of sections; let i=index">
+			    		<div *ngIf="sec.horigontalImage" [ngStyle]="{'background-image': 'url(' + sec.horigontalImage + ')', 'background-size': 'cover'}" (click)= "onSection(sec)">
+			    			<a>
+			    				{{sec.sectionName}}
+			    				<span class="ulist-arrow"> <i class="fa fa-angle-right"></i> </span>
+			    	   		 </a> 
+			    		</div>
+			    		<div *ngIf="!sec.horigontalImage" style="background-image:url('./assets/img/noImage1.jpg')" (click)= "onSection(sec)">
+			    			<a >
+			    				{{sec.sectionName}}
+			    				<span class="ulist-arrow"> <i class="fa fa-angle-right"></i> </span>
+			    	   		 </a> 
+			    		</div>
+			    	</li>
+			    </ul>
+
+				<!-- Expand the section template to show all view -->			    
+			    <div class="text-center" *ngIf="sections">
+                    <span class="swiper" #swipe (click)="swipr(swipe)" *ngIf="sections.length>5">
+                        <span class="up-down">
+                            <i class="fa fa-angle-double-down"></i>
+                        </span>
+                        <span class="up-down up">
+                            <i class="fa fa-angle-double-up"></i>
+                        </span>
+                    </span>
+                </div>
+		    </div>	
+
+			<!-- On complete scroll section template to show section template on fixed slider view -->			    
+		    <div class="scroll-menu" *ngIf="showDiv==true">
+		    	<ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig" *ngIf="sections" >
+			        <div ngxSlickItem class="slide slick-slide" *ngFor="let sec of sections;let i = index">
+			        	<a (click)= "onSection(sec)" class="{{bgClass(i)}}">
+			        		<div >
+			        			<img *ngIf="sec.thumbnailImage" src="{{sec.thumbnailImage}}"> 
+			        			<img *ngIf="!sec.thumbnailImage" src="./assets/img/noImage1.jpg"> 
+			        			<div class="slick-text"> {{sec.sectionName}} </div>
+			        		</div>
+			        	</a>
+			        </div>   
+		       	</ngx-slick>
+		    </div>
+
+			<!-- Listing view -->
+		    <div class="realpage-view">
+    			<div class="list-view list-view7" [lazy-load-images]="{ rootMargin: '50px' }">
+	    			<div *ngFor="let postData of allPostData;let i = index" class="loop-div ">
+		    			<div class="view-lists grid-1" >
+					        <a  class="{{colorClass(i)}}" (click)="onFeeds(postData)">
+					        	<img [attr.data-src]="postData.thumbnailPicture" *ngIf="postData.thumbnailPicture" class="img-effect img-responsive"> 
+					        	<img src="./assets/img/noImage1.jpg" *ngIf="!postData.thumbnailPicture" class="img-effect img-responsive">
+				    			<div class="list-text-wrap one-heading">
+					    			<div class="suggested-div">
+					    				<div class="suggested-text" *ngIf="postData.headline">{{postData.headline.slice(0,25)}} <span>...</span> </div>
+					    			</div>
+					    			<div class="detail-text" *ngIf="postData.tagline"> {{postData.tagline.slice(0,45)}} <span>...</span> </div>
+					    		</div>
+			    				<div class="suggested-icons abs-align"><i class="material-icons">arrow_forward</i></div>
+				    			<div class="line"></div>
+				    		</a>
+				    	</div>
+				    </div>	
+			    </div>
+			</div>
+		</section>
+		<app-footer></app-footer>
+	</div>
+</div>
